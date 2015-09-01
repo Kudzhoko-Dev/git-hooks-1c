@@ -28,7 +28,7 @@ def get_added_or_modified_files():
             match = added_or_modified.match(line)
             if match:
                 added_or_modified_file = Path.cwd() / match.group('rel_name')
-                if added_or_modified_file.name.lower() != 'readme.md':  # todo
+                if added_or_modified_file.name.lower() != 'readme.md':
                     result.append(added_or_modified_file)
 
     return result
@@ -38,13 +38,13 @@ def get_for_processing_files(files: list):
     result = []
 
     for file in files:
-        if file.suffix.lower() in ['.epf', '.erf']:
+        if file.suffix.lower() in ['.epf', '.erf', '.ert', '.md']:
             result.append(file)
 
     return result
 
 
-def decompile(exe1c: Path, ib: Path, v8_reader: Path, files: list):
+def decompile(exe1c: Path, ib: Path, v8_reader: Path, gcomp: Path, files: list):
     result = []
 
     for file in files:
@@ -53,23 +53,31 @@ def decompile(exe1c: Path, ib: Path, v8_reader: Path, files: list):
         if not source_folder.exists():
             source_folder.mkdir(parents=True)
         else:
-            shutil.rmtree(str(source_folder), ignore_errors=True)  # fixme
+            shutil.rmtree(str(source_folder), ignore_errors=True)
 
         temp_bat_file = Path(tempfile.mktemp('.bat'))
         with temp_bat_file.open('w', encoding='cp866') as temp:
             temp.write('@echo off\n')
-            temp.write('"{}" /F"{}" /DisableStartupMessages /Execute"{}" {}'.format(  # fixme
-                str(exe1c),
-                str(ib),
-                str(v8_reader),
-                '/C"decompile;pathtocf;{};pathout;{};shutdown;convert-mxl2txt;"'.format(
+            file_suffix_lower = file.suffix.lower()
+            if file_suffix_lower in ['.epf', '.erf']:
+                temp.write('"{}" /F"{}" /DisableStartupMessages /Execute"{}" {}'.format(
+                    str(exe1c),
+                    str(ib),
+                    str(v8_reader),
+                    '/C"decompile;pathtocf;{};pathout;{};shutdown;convert-mxl2txt;"'.format(
+                        str(file),
+                        str(source_folder)
+                    )
+                ))
+            elif file_suffix_lower in ['.ept', '.md']:
+                temp.write('"{}" -d -F "{}" -DD "{}"'.format(
+                    str(gcomp),
                     str(file),
                     str(source_folder)
-                )
-            ))
-        exit_code = subprocess.check_call(['cmd.exe', '/C', str(temp_bat_file)])  # fixme
+                ))
+        exit_code = subprocess.check_call(['cmd.exe', '/C', str(temp_bat_file)])
         if not exit_code == 0:
-            raise Exception('Не удалось разобрать файл {}'.format(str(file)))  # fixme
+            raise Exception('Не удалось разобрать файл {}'.format(str(file)))
         result.append(source_folder)
 
     return result
@@ -106,7 +114,7 @@ def main():
         sys.path.append('C:\\Python34\\pycharm-debug-py3k.egg')
 
         import pydevd
-        pydevd.settrace(port=10050)  # todo
+        pydevd.settrace(port=10050)
 
     added_or_modified_files = get_added_or_modified_files()
     for_processing_files = get_for_processing_files(added_or_modified_files)
@@ -121,7 +129,10 @@ def main():
     v8_reader = Path(get_setting('General', 'V8Reader'))
     if not v8_reader.exists():
         raise Exception('V8Reader не существует!')
-    for_indexing_source_folders = decompile(exe1c, ib, v8_reader, for_processing_files)
+    gcomp = Path(get_setting('General', 'GComp'))
+    if not gcomp.exists():
+        raise Exception('GComp не существует!')
+    for_indexing_source_folders = decompile(exe1c, ib, v8_reader, gcomp, for_processing_files)
     add_to_index(for_indexing_source_folders)
 
 
