@@ -123,7 +123,7 @@ def main():
     exe1c = Path(get_setting('General', '1C'))
     if not exe1c.exists():
         raise Exception('Платформа не существует!')
-    ib = Path(get_setting('General', 'IB'))
+    ib = Path(get_setting('General', 'IB'))  # fixme
     if not ib.exists():
         raise Exception('Сервисной информационной базы не существует!')
     v8_reader = Path(get_setting('General', 'V8Reader'))
