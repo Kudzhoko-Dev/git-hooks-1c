@@ -69,7 +69,7 @@ def decompile(exe1c: Path, ib: Path, v8_reader: Path, gcomp: Path, files: list):
                         str(source_folder)
                     )
                 ))
-            elif file_suffix_lower in ['.ept', '.md']:
+            elif file_suffix_lower in ['.ert', '.md']:
                 temp.write('"{}" -d -F "{}" -DD "{}"'.format(
                     str(gcomp),
                     str(file),
