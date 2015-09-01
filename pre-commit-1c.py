@@ -79,6 +79,7 @@ def decompile(exe1c: Path, ib: Path, v8_reader: Path, gcomp: Path, files: list):
         if not exit_code == 0:
             raise Exception('Не удалось разобрать файл {}'.format(str(file)))
         result.append(source_folder)
+        temp_bat_file.unlink()
 
     return result
 
