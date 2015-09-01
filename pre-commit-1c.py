@@ -10,7 +10,7 @@ import sys
 import tempfile
 
 
-__version__ = '0.1.0'
+__version__ = '1.0.0'
 
 added_or_modified = re.compile('^\s*(?:A|M)\s+"{0,1}(?P<rel_name>[^"]*)"{0,1}')
 
