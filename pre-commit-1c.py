@@ -12,7 +12,7 @@ import tempfile
 
 __version__ = '1.0.0'
 
-added_or_modified = re.compile('^\s*(?:A|M)\s+"{0,1}(?P<rel_name>[^"]*)"{0,1}')
+added_or_modified = re.compile('^\s*(?:A|M)\s+"?(?P<rel_name>[^"]*)"?')
 
 
 def get_added_or_modified_files():
