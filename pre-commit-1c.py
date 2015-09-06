@@ -55,12 +55,11 @@ def decompile(exe1c: Path, ib: Path, v8_reader: Path, gcomp: Path, files: list):
         else:
             shutil.rmtree(str(source_folder), ignore_errors=True)
 
-        temp_bat_file = Path(tempfile.mktemp('.bat'))
-        with temp_bat_file.open('w', encoding='cp866') as temp:
-            temp.write('@echo off\n')
+        with tempfile.NamedTemporaryFile('w', encoding='cp866', suffix='.bat') as temp_bat_file:
+            temp_bat_file.write('@echo off\n')
             file_suffix_lower = file.suffix.lower()
             if file_suffix_lower in ['.epf', '.erf']:
-                temp.write('"{}" /F"{}" /DisableStartupMessages /Execute"{}" {}'.format(
+                temp_bat_file.write('"{}" /F"{}" /DisableStartupMessages /Execute"{}" {}'.format(
                     str(exe1c),
                     str(ib),
                     str(v8_reader),
@@ -70,16 +69,15 @@ def decompile(exe1c: Path, ib: Path, v8_reader: Path, gcomp: Path, files: list):
                     )
                 ))
             elif file_suffix_lower in ['.ert', '.md']:
-                temp.write('"{}" -d -F "{}" -DD "{}"'.format(
+                temp_bat_file.write('"{}" -d -F "{}" -DD "{}"'.format(
                     str(gcomp),
                     str(file),
                     str(source_folder)
                 ))
-        exit_code = subprocess.check_call(['cmd.exe', '/C', str(temp_bat_file)])
-        if not exit_code == 0:
-            raise Exception('Не удалось разобрать файл {}'.format(str(file)))
-        result.append(source_folder)
-        temp_bat_file.unlink()
+            exit_code = subprocess.check_call(['cmd.exe', '/C', str(temp_bat_file.name)])
+            if not exit_code == 0:
+                raise Exception('Не удалось разобрать файл {}'.format(str(file)))
+            result.append(source_folder)
 
     return result
 
