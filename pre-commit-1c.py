@@ -55,7 +55,7 @@ def decompile(exe1c: Path, ib: Path, v8_reader: Path, gcomp: Path, files: list):
         else:
             shutil.rmtree(str(source_folder), ignore_errors=True)
 
-        with tempfile.NamedTemporaryFile('w', encoding='cp866', suffix='.bat') as temp_bat_file:
+        with tempfile.NamedTemporaryFile('w', encoding='cp866', suffix='.bat', delete=False) as temp_bat_file:
             temp_bat_file.write('@echo off\n')
             file_suffix_lower = file.suffix.lower()
             if file_suffix_lower in ['.epf', '.erf']:
@@ -74,10 +74,11 @@ def decompile(exe1c: Path, ib: Path, v8_reader: Path, gcomp: Path, files: list):
                     str(file),
                     str(source_folder)
                 ))
-            exit_code = subprocess.check_call(['cmd.exe', '/C', str(temp_bat_file.name)])
-            if not exit_code == 0:
-                raise Exception('Не удалось разобрать файл {}'.format(str(file)))
-            result.append(source_folder)
+        exit_code = subprocess.check_call(['cmd.exe', '/C', str(temp_bat_file.name)])
+        if not exit_code == 0:
+            raise Exception('Не удалось разобрать файл {}'.format(str(file)))
+        result.append(source_folder)
+        Path(temp_bat_file.name).unlink()
 
     return result
 
