@@ -1,0 +1,11 @@
+grab==0.6.23
+lxml==3.4.4
+numpy==1.9.2
+progressbar33==2.4
+pycurl==7.19.5.1
+pytils==0.3
+scipy==0.16.0
+selection==0.0.11
+selenium==2.47.1
+six==1.9.0
+weblib==0.1.15
