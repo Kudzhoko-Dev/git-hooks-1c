@@ -1,5 +1,4 @@
 @echo off
-mklink ".git/hooks/pre-commit" "%~dp0pre-commit"
-mklink ".git/hooks/pre-commit-1c.py" "%~dp0pre-commit-1c.py"
-mklink ".git/hooks/pre-commit-1c.ini" "%~dp0pre-commit-1c.ini"
+mklink ".git/hooks/pre-commit" "%~dp0pre-commit.sample"
+mklink ".git/hooks/pre-commit.bat" "%~dp0pre-commit.bat"
 git config --local core.quotepath false
