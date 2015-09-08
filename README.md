@@ -30,8 +30,8 @@
 - *pre-commit-1c.py* — cобственно скрипт
 - *pre-commit-1c.ini.sample* — образец файла с настройками
 - *pre-commit.sample* — образец hook-скрипта, запускающего *pre-commit-1c.bat*
-- *pre-commit-1c.bat* — bat-скрипт, ищущий в переменной окружения Path путь до *pre-commit-1c.py* и запускающий его
-- *create-links-in-hooks.bat* — bat-скрипт, создающий символические ссылки в *.git/hooks* проекта на *pre-commit.sample* 
-(c именем *pre-commit*) и *pre-commit-1c.bat*
-- *copy-files-to-hooks.bat* — bat-скрипт, копирующий в *.git/hooks* проекта *pre-commit.sample* (под именем *pre-commit*) и 
-*pre-commit-1c.bat*
+- *pre-commit-1c.bat* — *bat*-скрипт, ищущий в переменной окружения Path путь до *pre-commit-1c.py* и запускающий его
+- *create-links-in-hooks.bat* — *bat*-скрипт, создающий символические ссылки в *.git/hooks* проекта на 
+*pre-commit.sample* (c именем *pre-commit*) и *pre-commit-1c.bat*
+- *copy-files-to-hooks.bat* — *bat*-скрипт, копирующий в *.git/hooks* проекта *pre-commit.sample* (под именем 
+*pre-commit*) и *pre-commit-1c.bat*
