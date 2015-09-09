@@ -120,8 +120,8 @@ def main():
     for_processing_files = get_for_processing_files(added_or_modified_files)
     if len(for_processing_files) == 0:
         exit(0)
-    exe1c = Path(get_setting('General', '1C'))
-    if not exe1c.exists():
+    exe_1c = Path(get_setting('General', '1C'))
+    if not exe_1c.exists():
         raise Exception('Платформа не существует!')
     ib = Path(get_setting('General', 'IB'))  # fixme
     if not ib.exists():
@@ -132,7 +132,7 @@ def main():
     gcomp = Path(get_setting('General', 'GComp'))
     if not gcomp.exists():
         raise Exception('GComp не существует!')
-    for_indexing_source_folders = decompile(exe1c, ib, v8_reader, gcomp, for_processing_files)
+    for_indexing_source_folders = decompile(exe_1c, ib, v8_reader, gcomp, for_processing_files)
     add_to_index(for_indexing_source_folders)
 
 
