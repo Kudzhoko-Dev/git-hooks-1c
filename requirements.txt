@@ -1,6 +1,0 @@
-grab==0.6.23
-numpy==1.9.2
-progressbar33==2.4
-pycurl==7.19.5.1
-pytils==0.3
-scipy==0.16.0
