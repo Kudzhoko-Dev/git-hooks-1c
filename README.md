@@ -28,7 +28,7 @@
 Состав
 ---
 
-- *pre-commit-1c.py* — cобственно скрипт
+- *precommit.py* — cобственно скрипт
 - *pre-commit-1c.ini.sample* — образец файла с настройками
 - *pre-commit.sample* — образец hook-скрипта, запускающего *pre-commit-1c.bat*
 - *pre-commit-1c.bat* — *bat*-скрипт, ищущий в переменной окружения Path путь до *pre-commit-1c.py* и запускающий его

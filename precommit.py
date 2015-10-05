@@ -9,6 +9,8 @@ import subprocess
 import sys
 import tempfile
 
+from decompiler1cwrapper.decompiler import Decompiler  # fixme Как мне это использовать?
+
 
 __version__ = '1.0.0'
 
