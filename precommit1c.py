@@ -1,7 +1,6 @@
 #! python3
 # -*- coding: utf-8 -*-
 from argparse import ArgumentParser
-from configparser import RawConfigParser
 from decompiler1cwrapper.main import Decompiler
 from pathlib import Path
 import re
@@ -10,7 +9,7 @@ import subprocess
 import sys
 
 
-__version__ = '2.0.0'
+__version__ = '2.0.1'
 
 added_or_modified = re.compile('^\s*(?:A|M)\s+"?(?P<rel_name>[^"]*)"?')
 
@@ -69,18 +68,6 @@ def add_to_index(files: list):
         exit_code = subprocess.check_call(['git', 'add', '--all', str(file)])
         if exit_code != 0:
             exit(exit_code)
-
-
-def get_setting(section, key):
-    settings_config_file_path_rel = Path('pre-commit-1c.ini')
-    if not settings_config_file_path_rel.exists():
-        settings_config_file_path_rel = Path(__file__).parent / settings_config_file_path_rel
-        if not settings_config_file_path_rel.exists():
-            raise Exception('Файл настроек не существует!')
-    config = RawConfigParser()
-    config.optionxform = lambda option: option
-    config.read(str(settings_config_file_path_rel), 'utf-8')
-    return config[section][key]
 
 
 def main():
