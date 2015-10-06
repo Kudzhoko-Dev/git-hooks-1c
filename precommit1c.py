@@ -2,17 +2,15 @@
 # -*- coding: utf-8 -*-
 from argparse import ArgumentParser
 from configparser import RawConfigParser
+from decompiler1cwrapper.main import Decompiler
 from pathlib import Path
 import re
 import shutil
 import subprocess
 import sys
-import tempfile
-
-from decompiler1cwrapper.decompiler import Decompiler  # fixme Как мне это использовать?
 
 
-__version__ = '1.0.0'
+__version__ = '2.0.0'
 
 added_or_modified = re.compile('^\s*(?:A|M)\s+"?(?P<rel_name>[^"]*)"?')
 
@@ -46,8 +44,10 @@ def get_for_processing_files(files: list):
     return result
 
 
-def decompile(exe1c: Path, ib: Path, v8_reader: Path, gcomp: Path, files: list):
+def decompile(files: list):
     result = []
+
+    decompiler = Decompiler()
 
     for file in files:
         source_folder = file.parent / (file.stem + '_' + file.suffix[1:] + '_src')
@@ -57,30 +57,9 @@ def decompile(exe1c: Path, ib: Path, v8_reader: Path, gcomp: Path, files: list):
         else:
             shutil.rmtree(str(source_folder), ignore_errors=True)
 
-        with tempfile.NamedTemporaryFile('w', encoding='cp866', suffix='.bat', delete=False) as temp_bat_file:
-            temp_bat_file.write('@echo off\n')
-            file_suffix_lower = file.suffix.lower()
-            if file_suffix_lower in ['.epf', '.erf']:
-                temp_bat_file.write('"{}" /F"{}" /DisableStartupMessages /Execute"{}" {}'.format(
-                    str(exe1c),
-                    str(ib),
-                    str(v8_reader),
-                    '/C"decompile;pathtocf;{};pathout;{};shutdown;convert-mxl2txt;"'.format(
-                        str(file),
-                        str(source_folder)
-                    )
-                ))
-            elif file_suffix_lower in ['.ert', '.md']:
-                temp_bat_file.write('"{}" -d -F "{}" -DD "{}"'.format(
-                    str(gcomp),
-                    str(file),
-                    str(source_folder)
-                ))
-        exit_code = subprocess.check_call(['cmd.exe', '/C', str(temp_bat_file.name)])
-        if not exit_code == 0:
-            raise Exception('Не удалось разобрать файл {}'.format(str(file)))
+        decompiler.perform(file, source_folder)
+
         result.append(source_folder)
-        Path(temp_bat_file.name).unlink()
 
     return result
 
@@ -122,19 +101,8 @@ def main():
     for_processing_files = get_for_processing_files(added_or_modified_files)
     if len(for_processing_files) == 0:
         exit(0)
-    exe_1c = Path(get_setting('General', '1C'))
-    if not exe_1c.exists():
-        raise Exception('Платформа не существует!')
-    ib = Path(get_setting('General', 'IB'))  # fixme
-    if not ib.exists():
-        raise Exception('Сервисной информационной базы не существует!')
-    v8_reader = Path(get_setting('General', 'V8Reader'))
-    if not v8_reader.exists():
-        raise Exception('V8Reader не существует!')
-    gcomp = Path(get_setting('General', 'GComp'))
-    if not gcomp.exists():
-        raise Exception('GComp не существует!')
-    for_indexing_source_folders = decompile(exe_1c, ib, v8_reader, gcomp, for_processing_files)
+
+    for_indexing_source_folders = decompile(for_processing_files)
     add_to_index(for_indexing_source_folders)
 
 
