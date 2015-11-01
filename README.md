@@ -18,10 +18,6 @@
 - Python 3.5. Каталог интерпретатора Python должен быть прописан в переменной окружения Path
 - Пакет [decompiler1cwrapper](https://github.com/Cujoko/decompiler1cwrapper) с необходимыми настройками
 - В переменной окружения Path должен быть прописан каталог *githooksfor1c*
-- Платформа 1С:Предприятие 8.3
-- Сервисная информационная база (в которой будет запускаться *V8Reader.epf*)
-- [v8Reader](https://github.com/xDrivenDevelopment/v8Reader)
-- [GComp](http://1c.alterplast.ru/gcomp/)
 
 Состав
 ---
