@@ -1,7 +1,7 @@
 #! python3
 # -*- coding: utf-8 -*-
 from argparse import ArgumentParser
-from decompiler1cwrapper.main import Decompiler
+from decompiler1cwrapper import Decompiler
 from pathlib import Path
 import re
 import shutil
@@ -9,7 +9,7 @@ import subprocess
 import sys
 
 
-__version__ = '2.0.1'
+__version__ = '2.0.2'
 
 added_or_modified = re.compile('^\s*(?:A|M)\s+"?(?P<rel_name>[^"]*)"?')
 
