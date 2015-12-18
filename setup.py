@@ -1,13 +1,13 @@
 #! python3
 # -*- coding: utf-8 -*-
-import githooksfor1c
+import githooks1c
 from setuptools import setup, find_packages
 
 
 setup(
-    name='githooksfor1c',
-    version=githooksfor1c.__version__,
-    url='https://github.com/Cujoko/githooksfor1c',
+    name='githooks1c',
+    version=githooks1c.__version__,
+    url='https://github.com/Cujoko/githooks1c',
 
     author='Cujoko',
     author_email='cujoko@gmail.com',
@@ -18,7 +18,7 @@ setup(
 
     packages=find_packages(),
     package_data={
-        'githooksfor1c': [
+        'githooks1c': [
             'pre-commit.sample',
             'pre-commit-1c.bat'
         ]
@@ -26,8 +26,8 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'clihp=githooksfor1c.createlinksinhooks:create_links_in_hooks_pre_commit',
-            'precommit1c=githooksfor1c.precommit1c:main'
+            'clihp=githooks1c.createlinksinhooks:create_links_in_hooks_pre_commit',
+            'precommit1c=githooks1c.precommit1c:main'
         ]
     }
 )

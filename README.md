@@ -8,16 +8,12 @@
 *ert*-и *md*-файлы — с помощью [GComp](http://1c.alterplast.ru/gcomp/). Результат разбора добавляется в индекс и 
 помещается в git-репозиторий.
 
-*create-links-in-hooks.bat* (или *copy-files-to-hooks.bat*, если вдруг создание символических ссылок невозможно) нужно 
-запускать из каталога проекта.
-
 Требования
 ---
 
 - Windows
-- Python 3.5. Каталог интерпретатора Python должен быть прописан в переменной окружения Path
+- Python 3.5. Каталоги интерпретатора и скриптов Python должны быть прописаны в переменной окружения Path
 - Пакет [decompiler1cwrapper](https://github.com/Cujoko/decompiler1cwrapper) с необходимыми настройками
-- В переменной окружения Path должен быть прописан каталог *githooksfor1c*
 
 Состав
 ---
@@ -25,7 +21,9 @@
 - *precommit1c.py* — cобственно скрипт
 - *pre-commit.sample* — образец hook-скрипта, запускающего *pre-commit-1c.bat*
 - *pre-commit-1c.bat* — *bat*-скрипт, ищущий в переменной окружения Path путь до *precommit1c.py* и запускающий его
-- *create-links-in-hooks.bat* — *bat*-скрипт, создающий символические ссылки в *.git/hooks* проекта на 
+- *createlinksinhooks.py* — скрипт, создающий символические ссылки в *.git/hooks* проекта на 
 *pre-commit.sample* (c именем *pre-commit*) и *pre-commit-1c.bat*
-- *copy-files-to-hooks.bat* — *bat*-скрипт, копирующий в *.git/hooks* проекта *pre-commit.sample* (под именем 
-*pre-commit*) и *pre-commit-1c.bat*
+
+Установка
+---
+
