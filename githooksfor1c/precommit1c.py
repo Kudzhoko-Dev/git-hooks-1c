@@ -9,8 +9,6 @@ import subprocess
 import sys
 
 
-__version__ = '2.0.2'
-
 added_or_modified = re.compile('^\s*(?:A|M)\s+"?(?P<rel_name>[^"]*)"?')
 
 
