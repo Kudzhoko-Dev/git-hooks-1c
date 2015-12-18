@@ -17,9 +17,16 @@ setup(
     ],
 
     packages=find_packages(),
+    package_data={
+        'githooksfor1c': [
+            'pre-commit.sample',
+            'pre-commit-1c.bat'
+        ]
+    },
 
     entry_points={
         'console_scripts': [
+            'clihp=githooksfor1c.createlinksinhooks:create_links_in_hooks_pre_commit',
             'precommit1c=githooksfor1c.precommit1c:main'
         ]
     }

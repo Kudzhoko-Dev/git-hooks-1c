@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from argparse import ArgumentParser
 from decompiler1cwrapper import Decompiler
+from githooksfor1c import __version__
 from pathlib import Path
 import re
 import shutil
