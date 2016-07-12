@@ -20,7 +20,7 @@
 
 - *precommit1c.py* — cобственно скрипт
 - *pre-commit.sample* — образец hook-скрипта, запускающего *pre-commit-1c.bat*
-- *pre-commit-1c.bat* — *bat*-скрипт, ищущий в переменной окружения Path путь до *precommit1c.py* и запускающий его
+- *pre-commit-1c.bat* — *bat*-скрипт, ищущий в переменной окружения Path путь до *precommit1c.exe* и запускающий его
 - *createlinksinhooks.py* — скрипт, создающий символические ссылки в *.git/hooks* проекта на 
 *pre-commit.sample* (c именем *pre-commit*) и *pre-commit-1c.bat*
 
