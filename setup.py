@@ -6,11 +6,34 @@ from setuptools import setup, find_packages
 
 setup(
     name='githooks1c',
+
     version=githooks1c.__version__,
+
+    description='Git hooks utilities for 1C:Enterprise',
+
     url='https://github.com/Cujoko/githooks1c',
 
     author='Cujoko',
     author_email='cujoko@gmail.com',
+
+    license='MIT',
+
+    classifiers=[
+        'Development Status :: 4 - Beta',
+
+        'Intended Audience :: Developers',
+
+        'License :: OSI Approved :: MIT License',
+
+        'Natural Language :: Russian',
+
+        'Programming Language :: Python :: 3.5',
+
+        'Topic :: Software Development',
+        'Topic :: Utilities'
+    ],
+
+    keywords='1c git precommit v8reader v8unpack gcomp',
 
     install_requires=[
         'decompiler1cwrapper'
