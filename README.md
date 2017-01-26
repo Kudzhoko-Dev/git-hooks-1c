@@ -21,10 +21,8 @@
 помещаются (committing) в git-репозиторий
 - *pre-commit.sample* — образец hook-скрипта, запускающего *pre-commit-1c.bat*
 - *pre-commit-1c.bat* — *bat*-скрипт, ищущий в переменной окружения Path путь до *precommit1c.exe* и запускающий его
-- *createlinksinhooks.py* — скрипт, создающий символические ссылки (только для Windows Vista и выше для пользователей
-и групп пользователей в локальной групповой политикой "Create Symbolic Links" в
-"Computer Configuration\Windows Settings\Local Policies\User Rights Assignment") в *.git/hooks* проекта на
-*pre-commit.sample* (c именем *pre-commit*) и *pre-commit-1c.bat*
+- *createlinksinhooks.py* — скрипт, создающий [символические ссылки][2] в *.git/hooks* проекта на *pre-commit.sample*
+(c именем *pre-commit*) и *pre-commit-1c.bat*
 
 Установка
 ---
@@ -39,3 +37,4 @@
 его нужно из каталога репозитория.
 
 [1]: https://github.com/Cujoko/decompiler1cwrapper
+[2]: https://github.com/git-for-windows/git/wiki/Symbolic-Links
