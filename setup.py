@@ -20,15 +20,10 @@ setup(
 
     classifiers=[
         'Development Status :: 4 - Beta',
-
         'Intended Audience :: Developers',
-
         'License :: OSI Approved :: MIT License',
-
         'Natural Language :: Russian',
-
         'Programming Language :: Python :: 3.5',
-
         'Topic :: Software Development',
         'Topic :: Utilities'
     ],
