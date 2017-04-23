@@ -20,10 +20,15 @@ setup(
 
     classifiers=[
         'Development Status :: 4 - Beta',
+
         'Intended Audience :: Developers',
+
         'License :: OSI Approved :: MIT License',
+
         'Natural Language :: Russian',
+
         'Programming Language :: Python :: 3.5',
+
         'Topic :: Software Development',
         'Topic :: Utilities'
     ],
@@ -31,7 +36,7 @@ setup(
     keywords='1c git precommit v8reader v8unpack gcomp',
 
     install_requires=[
-        'decompiler1cwrapper'
+        'decompiler1cwrapper>=1.2.2'
     ],
 
     packages=find_packages(),
