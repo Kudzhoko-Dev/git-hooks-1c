@@ -1,17 +1,17 @@
 #! python3
 # -*- coding: utf-8 -*-
-import githooks1c
+import git_hooks_1c
 from setuptools import setup, find_packages
 
 
 setup(
-    name='githooks1c',
+    name='git_hooks_1c',
 
-    version=githooks1c.__version__,
+    version=git_hooks_1c.__version__,
 
     description='Git hooks utilities for 1C:Enterprise',
 
-    url='https://github.com/Cujoko/githooks1c',
+    url='https://github.com/Cujoko/git-hooks-1c',
 
     author='Cujoko',
     author_email='cujoko@gmail.com',
@@ -33,15 +33,15 @@ setup(
         'Topic :: Utilities'
     ],
 
-    keywords='1c git precommit v8reader v8unpack gcomp',
+    keywords='1c git pre-commit v8reader v8unpack gcomp',
 
     install_requires=[
-        'decompiler1cwrapper>=1.2.2'
+        'parse-1c-build>=2.0.0'
     ],
 
     packages=find_packages(),
     package_data={
-        'githooks1c': [
+        'git_hooks_1c': [
             'pre-commit.sample',
             'pre-commit-1c.bat'
         ]
@@ -49,8 +49,8 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'clihp=githooks1c.createlinksinhooks:create_links_in_hooks_pre_commit',
-            'precommit1c=githooks1c.precommit1c:main'
+            'clihp=git_hooks_1c.create_links_in_hooks:create_links_in_hooks_pre_commit',
+            'pre-commit-1c=git_hooks_1c.pre-commit_1c:main'
         ]
     }
 )
