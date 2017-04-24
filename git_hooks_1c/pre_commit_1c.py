@@ -1,8 +1,8 @@
 #! python3
 # -*- coding: utf-8 -*-
 from argparse import ArgumentParser
-from decompiler1cwrapper import Decompiler
-from githooks1c import __version__
+from parse_1c_build import Decompiler
+from git_hooks_1c import __version__
 from pathlib import Path
 import re
 import shutil
@@ -55,7 +55,7 @@ def decompile(files: list):
         else:
             shutil.rmtree(str(source_folder), ignore_errors=True)
 
-        decompiler.perform(file, source_folder)
+        decompiler.parse(file, source_folder)
 
         result.append(source_folder)
 
