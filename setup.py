@@ -50,7 +50,7 @@ setup(
     entry_points={
         'console_scripts': [
             'clihp=git_hooks_1c.create_links_in_hooks:create_links_in_hooks_pre_commit',
-            'pre-commit-1c=git_hooks_1c.pre-commit_1c:main'
+            'pre-commit-1c=git_hooks_1c.pre_commit_1c:main'
         ]
     }
 )
