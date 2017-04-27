@@ -36,7 +36,7 @@ setup(
     keywords='1c git pre-commit v8reader v8unpack gcomp',
 
     install_requires=[
-        'parse-1c-build>=2.0.0'
+        'parse-1c-build'
     ],
 
     packages=find_packages(),
