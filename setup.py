@@ -1,4 +1,4 @@
-#! python3
+#! python3.6
 # -*- coding: utf-8 -*-
 import git_hooks_1c
 from setuptools import setup, find_packages

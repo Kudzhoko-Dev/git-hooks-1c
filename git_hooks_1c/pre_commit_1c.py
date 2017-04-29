@@ -1,4 +1,4 @@
-#! python3
+#! python3.6
 # -*- coding: utf-8 -*-
 from argparse import ArgumentParser
 from parse_1c_build import Parser
