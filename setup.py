@@ -1,8 +1,8 @@
 #! python3.6
 # -*- coding: utf-8 -*-
-import git_hooks_1c
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
+import git_hooks_1c
 
 setup(
     name='git_hooks_1c',
