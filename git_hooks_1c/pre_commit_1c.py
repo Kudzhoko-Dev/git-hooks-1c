@@ -1,4 +1,3 @@
-#! python3.6
 # -*- coding: utf-8 -*-
 from argparse import ArgumentParser
 from pathlib import Path
@@ -7,9 +6,8 @@ import shutil
 import subprocess
 import sys
 
-from parse_1c_build import Parser
-
 from git_hooks_1c import __version__
+from parse_1c_build import Parser
 
 added_or_modified = re.compile('^\s*(?:A|M)\s+"?(?P<rel_name>[^"]*)"?')
 

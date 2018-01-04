@@ -1,4 +1,3 @@
-#! python3.6
 # -*- coding: utf-8 -*-
 from pathlib import Path
 import subprocess
@@ -6,7 +5,7 @@ import subprocess
 
 def create_links_in_hooks_pre_commit():
     script_dir_path = Path(__file__).parent
-    current_dir_path = Path.cwd() / Path('.git', 'hooks')
+    current_dir_path = Path.cwd() / '.git' / 'hooks'
 
     pre_commit_file_path = script_dir_path / 'pre-commit.sample'
     pre_commit_symbolic_path = current_dir_path / 'pre-commit'
