@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
-from argparse import ArgumentParser
-from pathlib import Path
 import re
 import shutil
 import subprocess
 import sys
+from argparse import ArgumentParser
+from pathlib import Path
+from typing import List
 
-from git_hooks_1c import __version__
 from parse_1c_build import Parser
 
-added_or_modified = re.compile('^\s*(?:A|M)\s+"?(?P<rel_name>[^"]*)"?')
+from git_hooks_1c import __version__
+
+added_or_modified = re.compile(r'^\s*(?:A|M)\s+"?(?P<rel_name>[^"]*)"?')
 
 
-def get_added_or_modified_file_paths():
+def get_added_or_modified_file_paths() -> List[Path]:
     result = []
 
     try:
@@ -31,7 +33,7 @@ def get_added_or_modified_file_paths():
     return result
 
 
-def get_for_processing_file_paths(file_paths: list):
+def get_for_processing_file_paths(file_paths: List[Path]) -> List[Path]:
     result = []
 
     for file_path in file_paths:
@@ -41,7 +43,7 @@ def get_for_processing_file_paths(file_paths: list):
     return result
 
 
-def parse(file_paths: list):
+def parse(file_paths: List[Path]) -> List[Path]:
     result = []
 
     parser = Parser()
@@ -61,17 +63,17 @@ def parse(file_paths: list):
     return result
 
 
-def add_to_index(dir_paths: list):
+def add_to_index(dir_paths: List[Path]) -> None:
     for dir_path in dir_paths:
         exit_code = subprocess.check_call(['git', 'add', '--all', str(dir_path)])
         if exit_code != 0:
             exit(exit_code)
 
 
-def main():
+def main() -> None:
     argparser = ArgumentParser()
     argparser.add_argument('-v', '--version', action='version', version='%(prog)s, ver. {}'.format(__version__))
-    args = argparser.parse_args()
+    argparser.parse_args()
 
     added_or_modified_file_paths = get_added_or_modified_file_paths()
     for_processing_file_paths = get_for_processing_file_paths(added_or_modified_file_paths)

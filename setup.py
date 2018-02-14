@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import git_hooks_1c
 from setuptools import find_packages, setup
+
+import git_hooks_1c
 
 setup(
     name='git_hooks_1c',
@@ -25,6 +26,7 @@ setup(
 
         'Natural Language :: Russian',
 
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
 
         'Topic :: Software Development',

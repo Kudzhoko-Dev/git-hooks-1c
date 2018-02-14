@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 
-def create_links_in_hooks_pre_commit():
+def create_links_in_hooks_pre_commit() -> None:
     script_dir_path = Path(__file__).parent
     current_dir_path = Path.cwd() / '.git' / 'hooks'
 
