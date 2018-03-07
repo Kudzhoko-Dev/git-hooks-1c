@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-import subprocess
 from pathlib import Path
+import subprocess
+from typing import Any
 
 
-def create_links_in_hooks_pre_commit() -> None:
+def run() -> None:
     script_dir_path = Path(__file__).parent
     current_dir_path = Path.cwd() / '.git' / 'hooks'
 
@@ -46,5 +47,17 @@ def create_links_in_hooks_pre_commit() -> None:
     ])
 
 
-if __name__ == '__main__':
-    create_links_in_hooks_pre_commit()
+def add_subparser(subparsers: Any) -> None:
+    decs = 'Create links in hooks dir'
+    subparser = subparsers.add_parser(
+        Path(__file__).stem,
+        help=decs,
+        description=decs,
+        add_help=False)
+
+    subparser.set_defaults(func=run)
+
+    subparser.add_argument(
+        '-h', '--help',
+        action='help',
+        help='Show this help message and exit')

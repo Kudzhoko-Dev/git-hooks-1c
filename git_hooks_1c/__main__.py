@@ -1,0 +1,10 @@
+# -*- coding: utf-8 -*-
+from pathlib import Path
+import sys
+
+from git_hooks_1c.core import run
+
+sys.path.insert(0, str(Path(__file__).absolute().parent.parent))
+
+if __name__ == '__main__':
+    run()

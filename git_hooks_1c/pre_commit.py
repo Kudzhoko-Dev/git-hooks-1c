@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
+from pathlib import Path
 import re
 import shutil
 import subprocess
-import sys
-from argparse import ArgumentParser
-from pathlib import Path
-from typing import List
+from typing import Any, List
 
 from parse_1c_build import Parser
-
-from git_hooks_1c import __version__
 
 added_or_modified = re.compile(r'^\s*(?:A|M)\s+"?(?P<rel_name>[^"]*)"?')
 
@@ -70,11 +66,7 @@ def add_to_index(dir_paths: List[Path]) -> None:
             exit(exit_code)
 
 
-def main() -> None:
-    argparser = ArgumentParser()
-    argparser.add_argument('-v', '--version', action='version', version='%(prog)s, ver. {}'.format(__version__))
-    argparser.parse_args()
-
+def run() -> None:
     added_or_modified_file_paths = get_added_or_modified_file_paths()
     for_processing_file_paths = get_for_processing_file_paths(added_or_modified_file_paths)
     if len(for_processing_file_paths) == 0:
@@ -84,5 +76,17 @@ def main() -> None:
     add_to_index(for_indexing_source_dir_paths)
 
 
-if __name__ == '__main__':
-    sys.exit(main())
+def add_subparser(subparsers: Any) -> None:
+    decs = 'Pre-commit for 1C:Enterprise files'  # todo Улучшить описание субпарсера
+    subparser = subparsers.add_parser(
+        Path(__file__).stem,
+        help=decs,
+        description=decs,
+        add_help=False)
+
+    subparser.set_defaults(func=run)
+
+    subparser.add_argument(
+        '-h', '--help',
+        action='help',
+        help='Show this help message and exit')

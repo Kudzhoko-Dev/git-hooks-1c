@@ -1,2 +1,2 @@
 @echo off
-for %%i in (pre-commit-1c.exe) do "%%~$Path:i"
+for %%i in (gh1c.exe) do "%%~$Path:i pre-commit"
