@@ -5,7 +5,7 @@ from git_hooks_1c import __version__, clih, pre_commit
 
 
 def get_argparser() -> ArgumentParser:
-    parser = ArgumentParser(prog='u1c', description='Git hooks utilities for 1C:Enterprise', add_help=False)
+    parser = ArgumentParser(prog='gh1c', description='Git hooks utilities for 1C:Enterprise', add_help=False)
 
     parser.add_argument(
         '-h', '--help',
