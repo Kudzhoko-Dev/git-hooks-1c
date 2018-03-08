@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import git_hooks_1c
 from setuptools import find_packages, setup
+
+import git_hooks_1c
 
 setup(
     name='git_hooks_1c',
@@ -48,7 +49,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'gh1c=git_hooks_1c.__main__:run'
+            'gh1c=git_hooks_1c.__main__.run'
         ]
     }
 )
