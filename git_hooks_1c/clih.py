@@ -4,7 +4,7 @@ import subprocess
 from typing import Any
 
 
-def run() -> None:
+def run(args: Any) -> None:
     script_dir_path = Path(__file__).parent
     current_dir_path = Path.cwd() / '.git' / 'hooks'
 
