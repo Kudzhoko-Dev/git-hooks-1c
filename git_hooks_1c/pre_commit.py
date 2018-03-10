@@ -52,7 +52,7 @@ def parse(file_paths: List[Path]) -> List[Path]:
         else:
             shutil.rmtree(str(source_dir_path), ignore_errors=True)
 
-        parser.parse(file_path, source_dir_path)
+        parser.run(file_path, source_dir_path)
 
         result.append(source_dir_path)
 
