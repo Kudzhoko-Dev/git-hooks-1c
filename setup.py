@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import git_hooks_1c
 from setuptools import find_packages, setup
+
+import git_hooks_1c
 
 setup(
     name='git_hooks_1c',
@@ -36,6 +37,10 @@ setup(
 
     install_requires=[
         'parse-1c-build'
+    ],
+
+    dependency_links=[
+        'http://github.com/Cujoko/parse-1c-build/tarball/master',
     ],
 
     packages=find_packages(),
