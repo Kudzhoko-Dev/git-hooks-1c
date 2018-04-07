@@ -33,5 +33,5 @@ setup(
             'gh1c=git_hooks_1c.__main__:run'
         ]
     },
-    license = 'MIT'
+    license='MIT'
 )
