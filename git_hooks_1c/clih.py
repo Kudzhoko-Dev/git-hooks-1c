@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
 import subprocess
-from typing import Any
 
 
-def run() -> None:
+def run():
     script_dir_path = Path(__file__).parent
     current_dir_path = Path.cwd() / '.git' / 'hooks'
     pre_commit_file_path = script_dir_path / 'pre-commit.sample'
@@ -40,7 +39,7 @@ def run() -> None:
     ])
 
 
-def add_subparser(subparsers: Any) -> None:
+def add_subparser(subparsers):
     decs = 'Create links in hooks dir'
     subparser = subparsers.add_parser(
         Path(__file__).stem,

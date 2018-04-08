@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
 import subprocess
-from typing import Any, List
 
 import re
 import shutil
@@ -11,7 +10,7 @@ from parse_1c_build.parse import Parser
 added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
 
 
-def get_added_or_modified_file_paths() -> List[Path]:
+def get_added_or_modified_file_paths():
     result = []
     try:
         output = subprocess.check_output(['git', 'status', '--porcelain']).decode()
@@ -27,7 +26,7 @@ def get_added_or_modified_file_paths() -> List[Path]:
     return result
 
 
-def get_for_processing_file_paths(file_paths: List[Path]) -> List[Path]:
+def get_for_processing_file_paths(file_paths):
     result = []
     for file_path in file_paths:
         if file_path.suffix.lower() in ['.epf', '.erf', '.ert', '.md']:
@@ -35,7 +34,7 @@ def get_for_processing_file_paths(file_paths: List[Path]) -> List[Path]:
     return result
 
 
-def parse(file_paths: List[Path]) -> List[Path]:
+def parse(file_paths):
     result = []
     parser = Parser()
     for file_path in file_paths:
@@ -49,14 +48,14 @@ def parse(file_paths: List[Path]) -> List[Path]:
     return result
 
 
-def add_to_index(dir_paths: List[Path]) -> None:
+def add_to_index(dir_paths):
     for dir_path in dir_paths:
         exit_code = subprocess.check_call(['git', 'add', '--all', str(dir_path)])
         if exit_code != 0:
             exit(exit_code)
 
 
-def run() -> None:
+def run():
     added_or_modified_file_paths = get_added_or_modified_file_paths()
     for_processing_file_paths = get_for_processing_file_paths(added_or_modified_file_paths)
     if len(for_processing_file_paths) == 0:
@@ -65,7 +64,7 @@ def run() -> None:
     add_to_index(for_indexing_source_dir_paths)
 
 
-def add_subparser(subparsers: Any) -> None:
+def add_subparser(subparsers):
     decs = 'Pre-commit for 1C:Enterprise files'
     subparser = subparsers.add_parser(
         Path(__file__).stem,
