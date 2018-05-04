@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-from pathlib import Path
+from __future__ import unicode_literals
+
 import subprocess
 
 import re
 import shutil
 
+from compat import Path
 from parse_1c_build.parse import Parser
 
 added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')

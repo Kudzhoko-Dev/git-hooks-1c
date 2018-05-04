@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from argparse import ArgumentParser
 
 from git_hooks_1c import __version__, clih, pre_commit

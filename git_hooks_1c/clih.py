@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
-from pathlib import Path
+from __future__ import unicode_literals
+
 import subprocess
+
+from compat import Path
 
 
 def run():
