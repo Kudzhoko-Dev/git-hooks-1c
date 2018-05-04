@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 import subprocess
 
-from git_hooks_1c.compat import Path
+from commons.compat import Path
 
 
 def run():

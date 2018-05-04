@@ -6,7 +6,7 @@ import subprocess
 import re
 import shutil
 
-from parse_1c_build.compat import Path
+from commons.compat import Path
 from parse_1c_build.parse import Parser
 
 added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
