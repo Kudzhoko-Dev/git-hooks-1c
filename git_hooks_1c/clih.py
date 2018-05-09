@@ -6,7 +6,7 @@ import subprocess
 from commons.compat import Path
 
 
-def run():
+def run(args):
     script_dir_path = Path(__file__).parent
     current_dir_path = Path.cwd() / '.git' / 'hooks'
     pre_commit_file_path = script_dir_path / 'pre-commit.sample'

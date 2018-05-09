@@ -57,7 +57,7 @@ def add_to_index(dir_paths):
             exit(exit_code)
 
 
-def run():
+def run(args):
     added_or_modified_file_paths = get_added_or_modified_file_paths()
     for_processing_file_paths = get_for_processing_file_paths(added_or_modified_file_paths)
     if len(for_processing_file_paths) == 0:
