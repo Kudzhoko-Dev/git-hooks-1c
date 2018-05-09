@@ -44,7 +44,8 @@ def parse(file_paths):
         if not source_dir_path.exists():
             source_dir_path.mkdir(parents=True)
         else:
-            shutil.rmtree(str(source_dir_path), ignore_errors=True)
+            # todo Было 'ignore_errors=True'. Убрал
+            shutil.rmtree(str(source_dir_path))
         parser.run(file_path, source_dir_path)
         result.append(source_dir_path)
     return result
