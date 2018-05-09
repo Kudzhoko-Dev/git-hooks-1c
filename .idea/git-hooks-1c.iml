@@ -13,4 +13,7 @@
     <orderEntry type="module" module-name="commons" />
     <orderEntry type="module" module-name="parse-1c-build" />
   </component>
+  <component name="TestRunnerService">
+    <option name="PROJECT_TEST_RUNNER" value="Unittests" />
+  </component>
 </module>
