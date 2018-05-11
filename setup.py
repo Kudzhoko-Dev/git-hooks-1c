@@ -40,7 +40,7 @@ setup(
     dependency_links=[
         'https://gitlab.com/Cujoko/commons/-/archive/master/commons-master.tar.gz#egg=commons-1.5.0',
         'https://gitlab.com/Cujoko/parse-1c-build/-/archive/master/parse-1c-build-master.tar.gz'
-        '#egg=parse-1c-build-3.3.0'
+        '#egg=parse_1c_build-3.3.0'
     ],
     install_requires=[
         'commons>=1.5.0',
