@@ -1,8 +1,0 @@
-appdirs>=1.4.3
--e git+git@gitlab.com:Cujoko/commons.git@master#egg=commons
--e git+git@gitlab.com:Cujoko/commons-1c.git@master#egg=commons_1c
--e git+git@gitlab.com:Cujoko/parse-1c-build.git@master#egg=parse_1c_build
-pathlib2>=2.3.2
-PyYAML>=3.12
-six>=1.11.0
-yodl>=1.0.0
