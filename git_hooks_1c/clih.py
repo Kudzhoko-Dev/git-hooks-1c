@@ -6,6 +6,7 @@ import subprocess
 from commons.compat import Path
 
 
+# noinspection PyUnusedLocal
 def run(args):
     script_dir_path = Path(__file__).parent
     current_dir_path = Path.cwd() / '.git' / 'hooks'
