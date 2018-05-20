@@ -1,36 +1,37 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import os
 import subprocess
-
-from commons.compat import Path
 
 
 # noinspection PyUnusedLocal
 def run(args):
-    script_dir_path = Path(__file__).parent
-    current_dir_path = Path.cwd() / '.git' / 'hooks'
-    pre_commit_file_path = script_dir_path / 'pre-commit.sample'
-    pre_commit_symbolic_path = current_dir_path / 'pre-commit'
-    if pre_commit_symbolic_path.exists() or pre_commit_symbolic_path.is_symlink():
-        pre_commit_symbolic_path.unlink()
+    script_dir_fullname = os.path.abspath(os.path.join(os.path.abspath(__file__), os.pardir))
+    current_dir_fullname = os.path.join(os.getcwd(), '.git', 'hooks')
+    pre_commit_file_fullname = os.path.join(script_dir_fullname, 'pre-commit.sample')
+    pre_commit_symbolic_fullname = os.path.join(current_dir_fullname, 'pre-commit')
+    # todo Возможно, islink не подходит
+    if os.path.exists(pre_commit_symbolic_fullname) or os.path.islink(pre_commit_symbolic_fullname):
+        os.remove(pre_commit_symbolic_fullname)
     subprocess.call([
         'cmd.exe',
         '/C',
         'mklink',
-        str(pre_commit_symbolic_path),
-        str(pre_commit_file_path)
+        pre_commit_symbolic_fullname,
+        pre_commit_file_fullname
     ])
-    bat_file_path = script_dir_path / 'pre-commit-1c.bat'
-    bat_symbolic_path = current_dir_path / 'pre-commit-1c.bat'
-    if bat_symbolic_path.exists() or bat_symbolic_path.is_symlink():
-        bat_symbolic_path.unlink()
+    bat_file_fullname = os.path.join(script_dir_fullname, 'pre-commit-1c.bat')
+    bat_symbolic_fullname = os.path.join(current_dir_fullname, 'pre-commit-1c.bat')
+    # todo Возможно, islink не подходит
+    if os.path.exists(bat_symbolic_fullname) or os.path.islink(bat_symbolic_fullname):
+        os.remove(bat_symbolic_fullname)
     subprocess.call([
         'cmd.exe',
         '/C',
         'mklink',
-        str(bat_symbolic_path),
-        str(bat_file_path)
+        bat_symbolic_fullname,
+        bat_file_fullname
     ])
     subprocess.call([
         'cmd.exe',
@@ -46,7 +47,7 @@ def run(args):
 def add_subparser(subparsers):
     decs = 'Create links in hooks dir'
     subparser = subparsers.add_parser(
-        Path(__file__).stem,
+        os.path.splitext(__file__)[0],
         help=decs,
         description=decs,
         add_help=False

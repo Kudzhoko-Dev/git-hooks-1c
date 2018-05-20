@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import os
 import sys
 
-from commons.compat import Path
 from git_hooks_1c.core import run
 
-sys.path.insert(0, str(Path(__file__).absolute().parent.parent))
+file_fullname = os.path.abspath(__file__)
+par1_dir_fullname = os.path.abspath(os.path.join(file_fullname, os.pardir))
+par2_dir_fullname = os.path.abspath(os.path.join(par1_dir_fullname, os.pardir))
+sys.path.insert(0, par2_dir_fullname)
 
 if __name__ == '__main__':
     run()

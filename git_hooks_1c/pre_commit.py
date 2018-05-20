@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import os
 import shutil
 import subprocess
 
 import re
 
-from commons.compat import Path
 from parse_1c_build.parse import Parser
 
 added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
 
 
-def get_added_or_modified_file_paths():
+def get_added_or_modified_file_fullnames():
     result = []
     try:
         output = subprocess.check_output(['git', 'status', '--porcelain']).decode()
@@ -22,56 +22,60 @@ def get_added_or_modified_file_paths():
         if line != '':
             match = added_or_modified.match(line)
             if match:
-                added_or_modified_file_path = Path.cwd() / match.group('rel_name')
-                if added_or_modified_file_path.name.lower() != 'readme.md':
-                    result.append(added_or_modified_file_path)
+                added_or_modified_file_fullname = os.path.join(os.getcwd(), match.group('rel_name'))
+                if added_or_modified_file_fullname.name.lower() != 'readme.md':
+                    result.append(added_or_modified_file_fullname)
     return result
 
 
-def get_for_processing_file_paths(file_paths):
+def get_for_processing_file_fullnames(file_fullnames):
     result = []
-    for file_path in file_paths:
-        if file_path.suffix.lower() in ['.epf', '.erf', '.ert', '.md']:
-            result.append(file_path)
+    for file_fullname in file_fullnames:
+        if os.path.splitext(file_fullname)[1].lower() in ['.epf', '.erf', '.ert', '.md']:
+            result.append(file_fullname)
     return result
 
 
-def parse(file_paths):
+def parse(file_fullnames):
     result = []
     parser = Parser()
-    for file_path in file_paths:
-        source_dir_path = file_path.parent / (file_path.stem + '_' + file_path.suffix[1:] + '_src')
-        if not source_dir_path.exists():
-            source_dir_path.mkdir(parents=True)
+    for file_fullname in file_fullnames:
+        source_dir_fullname = os.path.join(
+            os.path.abspath(os.path.join(file_fullname, os.pardir)),
+            os.path.splitext(file_fullname)[0] + '_' + os.path.splitext(file_fullname)[1][1:] + '_src'
+        )
+        if not os.path.exists(source_dir_fullname):
+            # fixme Добавить parents=True
+            os.mkdir(source_dir_fullname)
         else:
             # todo Было 'ignore_errors=True'. Убрал
-            shutil.rmtree(str(source_dir_path))
-        parser.run(file_path, source_dir_path)
-        result.append(source_dir_path)
+            shutil.rmtree(source_dir_fullname)
+        parser.run(file_fullname, source_dir_fullname)
+        result.append(source_dir_fullname)
     return result
 
 
-def add_to_index(dir_paths):
-    for dir_path in dir_paths:
-        exit_code = subprocess.check_call(['git', 'add', '--all', str(dir_path)])
+def add_to_index(dir_fullnames):
+    for dir_fullname in dir_fullnames:
+        exit_code = subprocess.check_call(['git', 'add', '--all', dir_fullname])
         if exit_code != 0:
             exit(exit_code)
 
 
 # noinspection PyUnusedLocal
 def run(args):
-    added_or_modified_file_paths = get_added_or_modified_file_paths()
-    for_processing_file_paths = get_for_processing_file_paths(added_or_modified_file_paths)
-    if len(for_processing_file_paths) == 0:
+    added_or_modified_file_fullnames = get_added_or_modified_file_fullnames()
+    for_processing_file_fullnames = get_for_processing_file_fullnames(added_or_modified_file_fullnames)
+    if len(for_processing_file_fullnames) == 0:
         exit(0)
-    for_indexing_source_dir_paths = parse(for_processing_file_paths)
-    add_to_index(for_indexing_source_dir_paths)
+    for_indexing_source_dir_fullnames = parse(for_processing_file_fullnames)
+    add_to_index(for_indexing_source_dir_fullnames)
 
 
 def add_subparser(subparsers):
     decs = 'Pre-commit for 1C:Enterprise files'
     subparser = subparsers.add_parser(
-        Path(__file__).stem,
+        os.path.splitext(__file__)[0],
         help=decs,
         description=decs,
         add_help=False
