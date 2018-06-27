@@ -7,6 +7,7 @@ import subprocess
 
 import re
 
+from commons.compat import s, u
 from parse_1c_build.parse import Parser
 
 added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
@@ -15,15 +16,21 @@ added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
 def get_added_or_modified_file_fullnames():
     result = []
     try:
-        output = subprocess.check_output(['git', 'status', '--porcelain']).decode()
+        args_au = [
+            'git',
+            'status',
+            '--porcelain'
+        ]
+        output = subprocess.check_output(s(args_au, encoding='cp1251')).decode('utf-8')
     except subprocess.CalledProcessError:
         return result
     for line in output.split('\n'):
         if line != '':
             match = added_or_modified.match(line)
             if match:
-                added_or_modified_file_fullname = os.path.join(os.getcwd(), match.group('rel_name'))
-                if added_or_modified_file_fullname.name.lower() != 'readme.md':
+                added_or_modified_file_fullname = os.path.join(
+                    u(os.getcwd(), encoding='cp1251'), match.group('rel_name'))
+                if os.path.basename(added_or_modified_file_fullname).lower() != 'readme.md':
                     result.append(added_or_modified_file_fullname)
     return result
 
@@ -42,8 +49,7 @@ def parse(file_fullnames):
     for file_fullname in file_fullnames:
         source_dir_fullname = os.path.join(
             os.path.abspath(os.path.join(file_fullname, os.pardir)),
-            os.path.splitext(file_fullname)[0] + '_' + os.path.splitext(file_fullname)[1][1:] + '_src'
-        )
+            os.path.splitext(file_fullname)[0] + '_' + os.path.splitext(file_fullname)[1][1:] + '_src')
         if not os.path.exists(source_dir_fullname):
             # fixme Добавить parents=True
             os.mkdir(source_dir_fullname)
@@ -57,7 +63,13 @@ def parse(file_fullnames):
 
 def add_to_index(dir_fullnames):
     for dir_fullname in dir_fullnames:
-        exit_code = subprocess.check_call(['git', 'add', '--all', dir_fullname])
+        args_au = [
+            'git',
+            'add',
+            '--all',
+            dir_fullname
+        ]
+        exit_code = subprocess.check_call(s(args_au, encoding='cp1251'))
         if exit_code != 0:
             exit(exit_code)
 
@@ -75,7 +87,7 @@ def run(args):
 def add_subparser(subparsers):
     decs = 'Pre-commit for 1C:Enterprise files'
     subparser = subparsers.add_parser(
-        os.path.splitext(__file__)[0],
+        os.path.splitext(os.path.basename(__file__))[0],
         help=decs,
         description=decs,
         add_help=False
