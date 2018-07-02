@@ -7,7 +7,7 @@ import subprocess
 
 import re
 
-from commons.compat import s, u
+from commons.compat import s
 from parse_1c_build.parse import Parser
 
 added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
@@ -28,8 +28,7 @@ def get_added_or_modified_file_fullnames():
         if line != '':
             match = added_or_modified.match(line)
             if match:
-                added_or_modified_file_fullname = os.path.join(
-                    u(os.getcwd(), encoding='cp1251'), match.group('rel_name'))
+                added_or_modified_file_fullname = os.path.abspath(match.group('rel_name'))
                 if os.path.basename(added_or_modified_file_fullname).lower() != 'readme.md':
                     result.append(added_or_modified_file_fullname)
     return result

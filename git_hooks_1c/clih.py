@@ -10,7 +10,7 @@ from commons.compat import s, u
 # noinspection PyUnusedLocal
 def run(args):
     script_dir_fullname = os.path.abspath(os.path.join(u(__file__, encoding='cp1251'), os.pardir))
-    current_dir_fullname = os.path.join(u(os.getcwd(), encoding='cp1251'), '.git', 'hooks')
+    current_dir_fullname = os.path.abspath(os.path.join('.git', 'hooks'))
     pre_commit_file_fullname = os.path.join(script_dir_fullname, 'pre-commit.sample')
     pre_commit_symbolic_fullname = os.path.join(current_dir_fullname, 'pre-commit')
     # todo Возможно, islink не подходит
