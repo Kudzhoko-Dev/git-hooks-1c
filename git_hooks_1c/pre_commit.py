@@ -21,7 +21,7 @@ def get_added_or_modified_file_fullnames():
             'status',
             '--porcelain'
         ]
-        output = subprocess.check_output(s(args_au, encoding='cp1251')).decode('utf-8')
+        output = subprocess.check_output(s(args_au, 'cp1251')).decode('utf-8')
     except subprocess.CalledProcessError:
         return result
     for line in output.split('\n'):
@@ -68,7 +68,7 @@ def add_to_index(dir_fullnames):
             '--all',
             dir_fullname
         ]
-        exit_code = subprocess.check_call(s(args_au, encoding='cp1251'))
+        exit_code = subprocess.check_call(s(args_au, 'cp1251'))
         if exit_code != 0:
             exit(exit_code)
 

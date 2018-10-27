@@ -9,7 +9,7 @@ from commons.compat import s, u
 
 # noinspection PyUnusedLocal
 def run(args):
-    script_dir_fullname = os.path.abspath(os.path.join(u(__file__, encoding='cp1251'), os.pardir))
+    script_dir_fullname = os.path.abspath(os.path.join(u(__file__, 'cp1251'), os.pardir))
     current_dir_fullname = os.path.abspath(os.path.join('.git', 'hooks'))
     pre_commit_file_fullname = os.path.join(script_dir_fullname, 'pre-commit.sample')
     pre_commit_symbolic_fullname = os.path.join(current_dir_fullname, 'pre-commit')
@@ -23,7 +23,7 @@ def run(args):
         pre_commit_symbolic_fullname,
         pre_commit_file_fullname
     ]
-    subprocess.call(s(args_au, encoding='cp1251'))
+    subprocess.call(s(args_au, 'cp1251'))
     bat_file_fullname = os.path.join(script_dir_fullname, 'pre-commit-1c.bat')
     bat_symbolic_fullname = os.path.join(current_dir_fullname, 'pre-commit-1c.bat')
     # todo Возможно, islink не подходит
@@ -36,7 +36,7 @@ def run(args):
         bat_symbolic_fullname,
         bat_file_fullname
     ]
-    subprocess.call(s(args_au, encoding='cp1251'))
+    subprocess.call(s(args_au, 'cp1251'))
     args_au = [
         'cmd.exe',
         '/C',
@@ -46,7 +46,7 @@ def run(args):
         'core.quotepath',
         'false'
     ]
-    subprocess.call(s(args_au, encoding='cp1251'))
+    subprocess.call(s(args_au, 'cp1251'))
 
 
 def add_subparser(subparsers):
