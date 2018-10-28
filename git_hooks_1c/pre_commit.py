@@ -8,7 +8,7 @@ import subprocess
 import re
 
 from commons.compat import s
-from parse_1c_build.parse import Parser
+from parse_1c_build import Parser
 
 added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
 
