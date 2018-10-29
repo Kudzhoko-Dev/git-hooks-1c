@@ -46,8 +46,7 @@ setup(
     },
     license='MIT',
     install_requires=[
-        'commons @ https://gitlab.com/Cujoko/commons/-/archive/master/commons-master.tar.gz#egg=commons-2.1.0',
+        'commons @ https://gitlab.com/Cujoko/commons/-/archive/master/commons-master.tar.gz',
         'parse-1c-build @ https://gitlab.com/Cujoko/parse-1c-build/-/archive/master/parse-1c-build-master.tar.gz'
-        '#egg=parse_1c_build-4.3.0'
     ]
 )
