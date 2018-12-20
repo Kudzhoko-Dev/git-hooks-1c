@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from argparse import ArgumentParser
 
+from commons.logging_ import add_logging_arguments
 from git_hooks_1c import __version__, clih, pre_commit
 
 
@@ -19,6 +20,7 @@ def get_argparser():
         version='%(prog)s, ver. {0}'.format(__version__),
         help='Show version'
     )
+    add_logging_arguments(parser)
     subparsers = parser.add_subparsers(dest='subparser_name')
     clih.add_subparser(subparsers)
     pre_commit.add_subparser(subparsers)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import logging
 import os
 import shutil
 import subprocess
@@ -10,6 +11,7 @@ import re
 from commons.compat import s
 from parse_1c_build import Parser
 
+logger = logging.getLogger(__name__)
 added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
 
 
@@ -75,12 +77,15 @@ def add_to_index(dir_fullnames):
 
 # noinspection PyUnusedLocal
 def run(args):
-    added_or_modified_file_fullnames = get_added_or_modified_file_fullnames()
-    for_processing_file_fullnames = get_for_processing_file_fullnames(added_or_modified_file_fullnames)
-    if len(for_processing_file_fullnames) == 0:
-        exit(0)
-    for_indexing_source_dir_fullnames = parse(for_processing_file_fullnames)
-    add_to_index(for_indexing_source_dir_fullnames)
+    try:
+        added_or_modified_file_fullnames = get_added_or_modified_file_fullnames()
+        for_processing_file_fullnames = get_for_processing_file_fullnames(added_or_modified_file_fullnames)
+        if len(for_processing_file_fullnames) == 0:
+            exit(0)
+        for_indexing_source_dir_fullnames = parse(for_processing_file_fullnames)
+        add_to_index(for_indexing_source_dir_fullnames)
+    except Exception as e:
+        logger.exception(e)
 
 
 def add_subparser(subparsers):
