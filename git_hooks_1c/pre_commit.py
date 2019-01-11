@@ -52,8 +52,7 @@ def parse(file_fullnames):
             os.path.abspath(os.path.join(file_fullname, os.pardir)),
             os.path.splitext(file_fullname)[0] + '_' + os.path.splitext(file_fullname)[1][1:] + '_src')
         if not os.path.exists(source_dir_fullname):
-            # fixme Добавить parents=True
-            os.mkdir(source_dir_fullname)
+            os.makedirs(source_dir_fullname)
         else:
             # todo Было 'ignore_errors=True'. Убрал
             shutil.rmtree(source_dir_fullname)
