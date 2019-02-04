@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
-
 from argparse import ArgumentParser
 
 from commons.logging_ import add_logging_arguments
 from git_hooks_1c import __version__, clih, pre_commit
 
 
-def get_argparser():
-    parser = ArgumentParser(prog='gh1c', description='Git hooks utilities for 1C:Enterprise', add_help=False)
+def get_argparser() -> ArgumentParser:
+    parser = ArgumentParser(
+        prog='gh1c', description='Git hooks utilities for 1C:Enterprise', add_help=False)
     parser.add_argument(
         '-h', '--help',
         action='help',

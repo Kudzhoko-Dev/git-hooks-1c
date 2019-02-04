@@ -1,46 +1,40 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
-
 import logging
-import os
+from pathlib import Path
 import subprocess
 
-from commons.compat import s, u
-
-logger = logging.getLogger(__name__)
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 # noinspection PyUnusedLocal
-def run(args):
+def run(args) -> None:
     try:
-        script_dir_fullname = os.path.abspath(os.path.join(u(__file__, 'cp1251'), os.pardir))
-        current_dir_fullname = os.path.abspath(os.path.join('.git', 'hooks'))
-        pre_commit_file_fullname = os.path.join(script_dir_fullname, 'pre-commit.sample')
-        pre_commit_symbolic_fullname = os.path.join(current_dir_fullname, 'pre-commit')
-        # todo Возможно, islink не подходит
-        if os.path.exists(pre_commit_symbolic_fullname) or os.path.islink(pre_commit_symbolic_fullname):
-            os.remove(pre_commit_symbolic_fullname)
+        script_dir_fullpath = Path(__file__).parent.absolute()
+        current_dir_fullpath = Path('.git', 'hooks').absolute()
+        pre_commit_file_fullpath = Path(script_dir_fullpath, 'pre-commit.sample')
+        pre_commit_symbolic_fullpath = Path(current_dir_fullpath, 'pre-commit')
+        if pre_commit_symbolic_fullpath.exists() or pre_commit_symbolic_fullpath.is_symlink():
+            pre_commit_symbolic_fullpath.unlink()
         args_au = [
             'cmd.exe',
             '/C',
             'mklink',
-            pre_commit_symbolic_fullname,
-            pre_commit_file_fullname
+            str(pre_commit_symbolic_fullpath),
+            str(pre_commit_file_fullpath)
         ]
-        subprocess.call(s(args_au, 'cp1251'))
-        bat_file_fullname = os.path.join(script_dir_fullname, 'pre-commit-1c.bat')
-        bat_symbolic_fullname = os.path.join(current_dir_fullname, 'pre-commit-1c.bat')
-        # todo Возможно, islink не подходит
-        if os.path.exists(bat_symbolic_fullname) or os.path.islink(bat_symbolic_fullname):
-            os.remove(bat_symbolic_fullname)
+        subprocess.call(args_au)
+        bat_file_fullpath = Path(script_dir_fullpath, 'pre-commit-1c.bat')
+        bat_symbolic_fullpath = Path(current_dir_fullpath, 'pre-commit-1c.bat')
+        if bat_symbolic_fullpath.exists() or bat_symbolic_fullpath.is_symlink():
+            bat_symbolic_fullpath.unlink()
         args_au = [
             'cmd.exe',
             '/C',
             'mklink',
-            bat_symbolic_fullname,
-            bat_file_fullname
+            str(bat_symbolic_fullpath),
+            str(bat_file_fullpath)
         ]
-        subprocess.call(s(args_au, 'cp1251'))
+        subprocess.call(args_au)
         args_au = [
             'cmd.exe',
             '/C',
@@ -50,15 +44,15 @@ def run(args):
             'core.quotepath',
             'false'
         ]
-        subprocess.call(s(args_au, 'cp1251'))
+        subprocess.call(args_au)
     except Exception as e:
         logger.exception(e)
 
 
-def add_subparser(subparsers):
+def add_subparser(subparsers) -> None:
     decs = 'Create links in hooks dir'
     subparser = subparsers.add_parser(
-        os.path.splitext(os.path.basename(__file__))[0],
+        Path(__file__).stem,
         help=decs,
         description=decs,
         add_help=False
