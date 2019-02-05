@@ -3,7 +3,7 @@ import logging
 from pathlib import Path
 import subprocess
 
-logger: logging.Logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 # noinspection PyUnusedLocal

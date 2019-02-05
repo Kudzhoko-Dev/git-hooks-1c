@@ -9,7 +9,7 @@ import shutil
 
 from parse_1c_build import Parser
 
-logger: logging.Logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
 
 
