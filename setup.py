@@ -29,7 +29,6 @@ setup(
     keywords='1c git pre-commit v8reader v8unpack gcomp',
     package_data={
         'git_hooks_1c': [
-            'pre-commit-1c.bat',
             'pre-commit.sample'
         ]
     },

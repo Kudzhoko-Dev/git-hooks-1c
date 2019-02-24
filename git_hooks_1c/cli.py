@@ -2,7 +2,7 @@
 from argparse import ArgumentParser
 
 from commons.logging_ import add_logging_arguments
-from git_hooks_1c import __version__, clih, pre_commit
+from git_hooks_1c import __version__, install, pre_commit, uninstall
 
 
 def get_argparser() -> ArgumentParser:
@@ -21,6 +21,7 @@ def get_argparser() -> ArgumentParser:
     )
     add_logging_arguments(parser)
     subparsers = parser.add_subparsers(dest='subparser_name')
-    clih.add_subparser(subparsers)
+    install.add_subparser(subparsers)
     pre_commit.add_subparser(subparsers)
+    uninstall.add_subparser(subparsers)
     return parser

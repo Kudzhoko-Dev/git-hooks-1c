@@ -3,6 +3,8 @@ import logging
 from pathlib import Path
 import subprocess
 
+import shutil
+
 logger = logging.getLogger(__name__)
 
 
@@ -13,28 +15,12 @@ def run(args) -> None:
         current_dir_fullpath = Path('.git', 'hooks').absolute()
         pre_commit_file_fullpath = Path(script_dir_fullpath, 'pre-commit.sample')
         pre_commit_symbolic_fullpath = Path(current_dir_fullpath, 'pre-commit')
-        if pre_commit_symbolic_fullpath.exists() or pre_commit_symbolic_fullpath.is_symlink():
-            pre_commit_symbolic_fullpath.unlink()
-        args_au = [
-            'cmd.exe',
-            '/C',
-            'mklink',
-            str(pre_commit_symbolic_fullpath),
-            str(pre_commit_file_fullpath)
-        ]
-        subprocess.call(args_au)
-        bat_file_fullpath = Path(script_dir_fullpath, 'pre-commit-1c.bat')
-        bat_symbolic_fullpath = Path(current_dir_fullpath, 'pre-commit-1c.bat')
-        if bat_symbolic_fullpath.exists() or bat_symbolic_fullpath.is_symlink():
-            bat_symbolic_fullpath.unlink()
-        args_au = [
-            'cmd.exe',
-            '/C',
-            'mklink',
-            str(bat_symbolic_fullpath),
-            str(bat_file_fullpath)
-        ]
-        subprocess.call(args_au)
+        if pre_commit_symbolic_fullpath.exists() and not args.force:
+            print('git-hooks-1c already exist')
+        else:
+            shutil.copyfile(str(pre_commit_file_fullpath), str(pre_commit_symbolic_fullpath))
+            print('git-hooks-1c installed')
+
         args_au = [
             'cmd.exe',
             '/C',
@@ -50,7 +36,7 @@ def run(args) -> None:
 
 
 def add_subparser(subparsers) -> None:
-    decs = 'Create links in hooks dir'
+    decs = 'Install hooks'
     subparser = subparsers.add_parser(
         Path(__file__).stem,
         help=decs,
@@ -62,4 +48,9 @@ def add_subparser(subparsers) -> None:
         '-h', '--help',
         action='help',
         help='Show this help message and exit'
+    )
+    subparser.add_argument(
+        '-f', '--force',
+        action='store_true',
+        help='Install hooks anyway'
     )
