@@ -1,4 +1,4 @@
-Набор утилит для перехватчиков (hooks) Git
+Набор утилит для перехватчиков (hooks) Git для работы с 1С
 ===
 
 Что делает
@@ -12,19 +12,17 @@
 
 - Windows
 - Python 3.7 и выше. Каталоги интерпретатора и скриптов Python должны быть прописаны в переменной окружения Path
+- Пакеты virtualenv и virtualenvwrapper-win
 - Пакет [parse-1c-build][1] с необходимыми настройками
 
 Состав
 ---
 
+- *install.py* — скрипт, создающий хуки в *.git/hooks* проекта. Запускается командой *install*.
+- *uninstall.py* — скрипт, удаляющий хуки из *.git/hooks* проекта. Запускается командой *uninstall*.
 - *pre-commit.sample* — образец hook-скрипта, запускающего *pre-commit-1c.bat*
-- *pre-commit-1c.bat* — *bat*-скрипт, ищущий в переменной окружения Path путь до *gh1c.exe* и запускающий его с 
-командой *pre_commit*.
-- *clih.py* — скрипт, создающий [символические ссылки][2] в *.git/hooks* проекта на 
-*pre-commit.sample* (c именем *pre-commit*) и *pre-commit-1c.bat*. Запускается командой *clih*.
 - *pre_commit.py* — скрипт для разборки *epf*-, *erf*-, *ert*- и *md*-файлов с помощью пакета 
 [parse-1c-build][1] в каталоги, которые затем добавляются в индекс и помещаются в git-репозиторий. Запускается командой 
 *pre_commit*.
 
 [1]: https://github.com/Cujoko/parse-1c-build
-[2]: https://github.com/git-for-windows/git/wiki/Symbolic-Links
