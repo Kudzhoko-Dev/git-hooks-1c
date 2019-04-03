@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 
-from commons.logging_ import add_loggers
+from cjk_commons.logging_ import add_loggers
 from git_hooks_1c import logger as main_logger
 from git_hooks_1c.cli import get_argparser
 

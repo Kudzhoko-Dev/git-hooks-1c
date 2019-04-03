@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 here = Path(__file__).parent
 
@@ -10,13 +10,13 @@ with Path(here, 'git_hooks_1c', '__about__.py').open() as f:
     exec(f.read(), about)
 
 setup(
-    name='git_hooks_1c',
+    name='git-hooks-1c',
     version=about['__version__'],
     description='Git hooks utilities for 1C:Enterprise',
     author='Cujoko',
     author_email='cujoko@gmail.com',
-    url='https://gitlab.com/Cujoko/git-hooks-1c',
-    packages=find_packages(),
+    url='https://github.com/Cujoko/git-hooks-1c',
+    packages=['git_hooks_1c'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -39,7 +39,7 @@ setup(
     },
     license='MIT',
     install_requires=[
-        'commons @ https://gitlab.com/Cujoko/commons/-/archive/master/commons-master.tar.gz',
-        'parse-1c-build @ https://gitlab.com/Cujoko/parse-1c-build/-/archive/master/parse-1c-build-master.tar.gz'
+        'cjk-commons>=3.3.0',
+        'parse-1c-build>=5.5.0'
     ]
 )
