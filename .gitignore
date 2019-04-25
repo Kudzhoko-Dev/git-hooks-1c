@@ -141,3 +141,4 @@ fabric.properties
 
 ### Poetry template
 poetry.lock
+tests/data/  

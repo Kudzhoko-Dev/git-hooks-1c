@@ -1,2 +1,0 @@
-#!/bin/sh
-cmd //C "workon git-hooks-1c & cd- & gh1c.exe pre_commit & deactivate"

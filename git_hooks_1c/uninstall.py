@@ -8,10 +8,10 @@ logger = logging.getLogger(__name__)
 # noinspection PyUnusedLocal
 def run(args) -> None:
     try:
-        current_dir_fullpath = Path('.git', 'hooks').absolute()
-        pre_commit_symbolic_fullpath = Path(current_dir_fullpath, 'pre-commit')
-        if pre_commit_symbolic_fullpath.exists():
-            pre_commit_symbolic_fullpath.unlink()
+        hooks_dir_fullpath = Path('.git', 'hooks').absolute()
+        pre_commit_file_fullpath = Path(hooks_dir_fullpath, 'pre-commit')
+        if pre_commit_file_fullpath.exists():
+            pre_commit_file_fullpath.unlink()
             print('git-hooks-1c uninstalled')
         else:
             print('git-hooks-1c not installed')

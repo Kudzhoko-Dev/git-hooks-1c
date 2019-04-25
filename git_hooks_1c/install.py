@@ -12,25 +12,18 @@ logger = logging.getLogger(__name__)
 def run(args) -> None:
     try:
         script_dir_fullpath = Path(__file__).parent.absolute()
-        current_dir_fullpath = Path('.git', 'hooks').absolute()
-        pre_commit_file_fullpath = Path(script_dir_fullpath, 'pre-commit.sample')
-        pre_commit_symbolic_fullpath = Path(current_dir_fullpath, 'pre-commit')
-        if pre_commit_symbolic_fullpath.exists() and not args.force:
+        hooks_dir_fullpath = Path('.git', 'hooks').absolute()
+        pre_commit_file_fullpath = Path(hooks_dir_fullpath, 'pre-commit')
+        if pre_commit_file_fullpath.exists() and not args.force:
             print('git-hooks-1c already exist')
         else:
-            shutil.copyfile(str(pre_commit_file_fullpath), str(pre_commit_symbolic_fullpath))
+            with pre_commit_file_fullpath.open('w') as pre_commit_file:
+                pre_commit_file.write('#!/bin/sh\n')
+                pre_commit_file.write('cmd //C "gh1c.exe pre_commit{}"\n'.format(
+                    ' -s' if args.only_source_files else ''))  # todo
             print('git-hooks-1c installed')
-
-        args_au = [
-            'cmd.exe',
-            '/C',
-            'git',
-            'config',
-            '--local',
-            'core.quotepath',
-            'false'
-        ]
-        subprocess.call(args_au)
+        subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.quotepath', 'false'])
+        subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.longpaths', 'true'])
     except Exception as e:
         logger.exception(e)
 
@@ -53,4 +46,9 @@ def add_subparser(subparsers) -> None:
         '-f', '--force',
         action='store_true',
         help='Install hooks anyway'
+    )
+    subparser.add_argument(
+        '-s', '--only-source-files',
+        action='store_true',
+        help='Remove 1C-files from index (add to index source files only)'
     )
