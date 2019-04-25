@@ -6,7 +6,8 @@ import shutil
 
 
 from cjk_commons.zip import extract_from_zip
-from git_hooks_1c import pre_commit
+from git_hooks_1c.pre_commit import (get_added_or_modified_file_fullpaths, get_for_processing_file_fullpaths, parse,
+                                     remove_from_index)
 
 
 @pytest.fixture()
@@ -27,10 +28,10 @@ def test_pre_commit_1(test):
 
     os.chdir(test_fullpath)
 
-    file_fullpaths = pre_commit.get_added_or_modified_file_fullpaths()
+    file_fullpaths = get_added_or_modified_file_fullpaths()
     assert len(file_fullpaths) == 0
 
-    assert len(pre_commit.get_for_processing_file_fullpaths(file_fullpaths)) == 0
+    assert len(get_for_processing_file_fullpaths(file_fullpaths)) == 0
 
 
 def test_pre_commit_2(test):
@@ -43,10 +44,10 @@ def test_pre_commit_2(test):
 
     os.chdir(test_fullpath)
 
-    file_fullpaths = pre_commit.get_added_or_modified_file_fullpaths()
+    file_fullpaths = get_added_or_modified_file_fullpaths()
     assert len(file_fullpaths) == 1
 
-    assert len(pre_commit.get_for_processing_file_fullpaths(file_fullpaths)) == 0
+    assert len(get_for_processing_file_fullpaths(file_fullpaths)) == 0
 
 
 def test_pre_commit_3(test):
@@ -59,10 +60,10 @@ def test_pre_commit_3(test):
 
     os.chdir(test_fullpath)
 
-    file_fullpaths = pre_commit.get_added_or_modified_file_fullpaths()
+    file_fullpaths = get_added_or_modified_file_fullpaths()
     assert len(file_fullpaths) == 2
 
-    assert len(pre_commit.get_for_processing_file_fullpaths(file_fullpaths)) == 1
+    assert len(get_for_processing_file_fullpaths(file_fullpaths)) == 1
 
 
 def test_pre_commit_4(test):
@@ -75,12 +76,15 @@ def test_pre_commit_4(test):
 
     os.chdir(test_fullpath)
 
-    file_fullpaths = pre_commit.get_added_or_modified_file_fullpaths()
+    file_fullpaths = get_added_or_modified_file_fullpaths()
     assert len(file_fullpaths) == 2
 
-    for_processing_file_fullpaths = pre_commit.get_for_processing_file_fullpaths(file_fullpaths)
+    for_processing_file_fullpaths = get_for_processing_file_fullpaths(file_fullpaths)
+    for_indexing_source_dir_fullpaths = parse(for_processing_file_fullpaths)
 
-    pre_commit.remove_from_index(for_processing_file_fullpaths)
+    assert len(for_indexing_source_dir_fullpaths) == 1
 
-    file_fullpaths = pre_commit.get_added_or_modified_file_fullpaths()
+    remove_from_index(for_processing_file_fullpaths)
+
+    file_fullpaths = get_added_or_modified_file_fullpaths()
     assert len(file_fullpaths) == 1
