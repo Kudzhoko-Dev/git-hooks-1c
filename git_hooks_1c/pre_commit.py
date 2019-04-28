@@ -24,7 +24,7 @@ def get_added_or_modified_file_fullpaths() -> List[Path]:
     except subprocess.CalledProcessError:
         args_au = ['git', 'status', '--ignore-submodules', '--porcelain']
         output = subprocess.check_output(args_au, encoding='utf-8')
-    for line in output.split():
+    for line in output.split('\n'):
         if line != '':
             match = added_or_modified.match(line)
             if match:
