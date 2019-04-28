@@ -4,10 +4,9 @@ from pathlib import Path
 import subprocess
 from typing import List
 
+import fleep
 import re
 import shutil
-
-import fleep
 
 from parse_1c_build import Parser
 
@@ -21,11 +20,11 @@ def get_added_or_modified_file_fullpaths() -> List[Path]:
     result = []
     try:
         args_au = ['git', 'diff-index',  '--ignore-submodules', '--name-status', '--cached', 'HEAD']
-        output = subprocess.check_output(args_au).decode('utf-8')
+        output = subprocess.check_output(args_au, encoding='utf-8')
     except subprocess.CalledProcessError:
         args_au = ['git', 'status', '--ignore-submodules', '--porcelain']
-        output = subprocess.check_output(args_au).decode('utf-8')
-    for line in output.split('\n'):
+        output = subprocess.check_output(args_au, encoding='utf-8')
+    for line in output.split():
         if line != '':
             match = added_or_modified.match(line)
             if match:
