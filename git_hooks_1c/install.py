@@ -12,12 +12,12 @@ def run(args) -> None:
     try:
         hooks_dir_fullpath = Path('.git', 'hooks').absolute()
         if not hooks_dir_fullpath.is_dir():
-            print('not a git repo')
+            logger.error('not a git repo')
             return
 
         pre_commit_file_fullpath = Path(hooks_dir_fullpath, 'pre-commit')
         if pre_commit_file_fullpath.exists() and not args.force:
-            print('git-hooks-1c already exist')
+            logger.info('git-hooks-1c already exist')
             return
 
         with pre_commit_file_fullpath.open('w') as pre_commit_file:
@@ -27,7 +27,7 @@ def run(args) -> None:
 
         subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.quotepath', 'false'])
         subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.longpaths', 'true'])
-        print('git-hooks-1c installed')
+        logger.info('git-hooks-1c installed')
 
     except Exception as e:
         logger.exception(e)

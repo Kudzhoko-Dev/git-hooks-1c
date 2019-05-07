@@ -11,16 +11,16 @@ def run(args) -> None:
     try:
         hooks_dir_fullpath = Path('.git', 'hooks').absolute()
         if not hooks_dir_fullpath.is_dir():
-            print('not a git repo')
+            logger.error('not a git repo')
             return
 
         pre_commit_file_fullpath = Path(hooks_dir_fullpath, 'pre-commit')
         if not pre_commit_file_fullpath.exists():
-            print('git-hooks-1c not installed')
+            logger.info('git-hooks-1c not installed')
             return
 
         pre_commit_file_fullpath.unlink()
-        print('git-hooks-1c uninstalled')
+        logger.info('git-hooks-1c uninstalled')
 
     except Exception as e:
         logger.exception(e)

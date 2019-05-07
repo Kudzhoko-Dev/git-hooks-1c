@@ -83,15 +83,18 @@ def run(args) -> None:
     try:
         added_or_modified_file_fullpaths = get_added_or_modified_file_fullpaths()
         if len(added_or_modified_file_fullpaths) == 0:
-            raise Exception('no added or modified files')
+            logger.info('no added or modified files')
+            sys.exit(1)
 
         for_processing_file_fullpaths = get_for_processing_file_fullpaths(added_or_modified_file_fullpaths)
         if len(for_processing_file_fullpaths) == 0:
-            raise Exception('no for processing files')
+            logger.info('no for processing files')
+            sys.exit(1)
 
         for_indexing_source_dir_fullpaths = parse(for_processing_file_fullpaths)
         if len(for_indexing_source_dir_fullpaths) == 0:
-            raise Exception('no for indexing source dirs')
+            logger.info('no for indexing source dirs')
+            sys.exit(1)
 
         add_to_index(for_indexing_source_dir_fullpaths)
 
@@ -100,7 +103,8 @@ def run(args) -> None:
 
         added_or_modified_file_fullpaths = get_added_or_modified_file_fullpaths()
         if len(added_or_modified_file_fullpaths) == 0:
-            raise Exception('no added or modified files')
+            logger.info('no added or modified files')
+            sys.exit(1)
 
     except Exception as e:
         logger.exception(e)
