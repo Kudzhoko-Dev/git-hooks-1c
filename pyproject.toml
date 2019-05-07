@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "git-hooks-1c"
-version = "9.0.2"
+version = "9.1.0"
 description = "Git hooks utilities for 1C:Enterprise"
 authors = ["Cujoko <cujoko@gmail.com>"]
 license = "MIT"

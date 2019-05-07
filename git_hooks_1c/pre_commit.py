@@ -2,6 +2,7 @@
 import logging
 from pathlib import Path
 import subprocess
+import sys
 from typing import List
 
 import fleep
@@ -65,31 +66,45 @@ def add_to_index(dir_fullpaths: List[Path]) -> None:
     for dir_fullpath in dir_fullpaths:
         args_au = ['git', 'add', '--all', str(dir_fullpath)]
         exit_code = subprocess.check_call(args_au)
-        if exit_code != 0:
-            exit(exit_code)
+        if exit_code:
+            raise Exception('some error occured while adding to index', exit_code)
 
 
 def remove_from_index(file_fullpaths: List[Path]) -> None:
     for file_fullpath in file_fullpaths:
         args_au = ['git', 'rm', '--cached', str(file_fullpath)]
         exit_code = subprocess.check_call(args_au)
-        if exit_code != 0:
-            exit(exit_code)
+        if exit_code:
+            raise Exception('some error occured while removing from index', exit_code)
 
 
 # noinspection PyUnusedLocal
 def run(args) -> None:
     try:
         added_or_modified_file_fullpaths = get_added_or_modified_file_fullpaths()
+        if len(added_or_modified_file_fullpaths) == 0:
+            raise Exception('no added or modified files')
+
         for_processing_file_fullpaths = get_for_processing_file_fullpaths(added_or_modified_file_fullpaths)
         if len(for_processing_file_fullpaths) == 0:
-            exit(0)
+            raise Exception('no for processing files')
+
         for_indexing_source_dir_fullpaths = parse(for_processing_file_fullpaths)
+        if len(for_indexing_source_dir_fullpaths) == 0:
+            raise Exception('no for indexing source dirs')
+
         add_to_index(for_indexing_source_dir_fullpaths)
+
         if args.only_source_files:
             remove_from_index(for_processing_file_fullpaths)
+
+        added_or_modified_file_fullpaths = get_added_or_modified_file_fullpaths()
+        if len(added_or_modified_file_fullpaths) == 0:
+            raise Exception('no added or modified files')
+
     except Exception as e:
         logger.exception(e)
+        sys.exit(1)
 
 
 def add_subparser(subparsers) -> None:

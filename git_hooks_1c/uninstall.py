@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 from pathlib import Path
+import sys
 
 logger = logging.getLogger(__name__)
 
@@ -9,14 +10,21 @@ logger = logging.getLogger(__name__)
 def run(args) -> None:
     try:
         hooks_dir_fullpath = Path('.git', 'hooks').absolute()
+        if not hooks_dir_fullpath.is_dir():
+            print('not a git repo')
+            return
+
         pre_commit_file_fullpath = Path(hooks_dir_fullpath, 'pre-commit')
-        if pre_commit_file_fullpath.exists():
-            pre_commit_file_fullpath.unlink()
-            print('git-hooks-1c uninstalled')
-        else:
+        if not pre_commit_file_fullpath.exists():
             print('git-hooks-1c not installed')
+            return
+
+        pre_commit_file_fullpath.unlink()
+        print('git-hooks-1c uninstalled')
+
     except Exception as e:
         logger.exception(e)
+        sys.exit(1)
 
 
 def add_subparser(subparsers) -> None:

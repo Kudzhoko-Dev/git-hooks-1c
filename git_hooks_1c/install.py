@@ -2,8 +2,7 @@
 import logging
 from pathlib import Path
 import subprocess
-
-import shutil
+import sys
 
 logger = logging.getLogger(__name__)
 
@@ -11,21 +10,28 @@ logger = logging.getLogger(__name__)
 # noinspection PyUnusedLocal
 def run(args) -> None:
     try:
-        script_dir_fullpath = Path(__file__).parent.absolute()
         hooks_dir_fullpath = Path('.git', 'hooks').absolute()
+        if not hooks_dir_fullpath.is_dir():
+            print('not a git repo')
+            return
+
         pre_commit_file_fullpath = Path(hooks_dir_fullpath, 'pre-commit')
         if pre_commit_file_fullpath.exists() and not args.force:
             print('git-hooks-1c already exist')
-        else:
-            with pre_commit_file_fullpath.open('w') as pre_commit_file:
-                pre_commit_file.write('#!/bin/sh\n')
-                pre_commit_file.write('cmd //C "gh1c.exe pre_commit{}"\n'.format(
-                    ' -s' if args.only_source_files else ''))  # todo
-            print('git-hooks-1c installed')
+            return
+
+        with pre_commit_file_fullpath.open('w') as pre_commit_file:
+            pre_commit_file.write('#!/bin/sh\n')
+            pre_commit_file.write('cmd //C "gh1c.exe pre_commit{}"\n'.format(
+                ' -s' if args.only_source_files else ''))  # todo
+
         subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.quotepath', 'false'])
         subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.longpaths', 'true'])
+        print('git-hooks-1c installed')
+
     except Exception as e:
         logger.exception(e)
+        sys.exit(1)
 
 
 def add_subparser(subparsers) -> None:
