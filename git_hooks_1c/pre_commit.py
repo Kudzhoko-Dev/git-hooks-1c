@@ -89,12 +89,10 @@ def run(args) -> None:
         for_processing_file_fullpaths = get_for_processing_file_fullpaths(added_or_modified_file_fullpaths)
         if len(for_processing_file_fullpaths) == 0:
             logger.info('no for processing files')
-            sys.exit(1)
 
         for_indexing_source_dir_fullpaths = parse(for_processing_file_fullpaths)
         if len(for_indexing_source_dir_fullpaths) == 0:
             logger.info('no for indexing source dirs')
-            sys.exit(1)
 
         add_to_index(for_indexing_source_dir_fullpaths)
 
