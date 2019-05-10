@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from pathlib import Path
 import os
+from pathlib import Path
+
 import pytest
 import shutil
 
-
 from cjk_commons.zip import extract_from_zip
-from git_hooks_1c.pre_commit import (get_added_or_modified_file_fullpaths, get_for_processing_file_fullpaths, parse,
+from git_hooks_1c.pre_commit import (get_for_processing_file_fullpaths, get_indexed_file_fullpaths, parse,
                                      remove_from_index)
 
 
@@ -28,7 +28,7 @@ def test_pre_commit_1(test):
 
     os.chdir(test_fullpath)
 
-    file_fullpaths = get_added_or_modified_file_fullpaths()
+    file_fullpaths = get_indexed_file_fullpaths()
     assert len(file_fullpaths) == 0
 
     assert len(get_for_processing_file_fullpaths(file_fullpaths)) == 0
@@ -44,7 +44,7 @@ def test_pre_commit_2(test):
 
     os.chdir(test_fullpath)
 
-    file_fullpaths = get_added_or_modified_file_fullpaths()
+    file_fullpaths = get_indexed_file_fullpaths()
     assert len(file_fullpaths) == 1
 
     assert len(get_for_processing_file_fullpaths(file_fullpaths)) == 0
@@ -60,7 +60,7 @@ def test_pre_commit_3(test):
 
     os.chdir(test_fullpath)
 
-    file_fullpaths = get_added_or_modified_file_fullpaths()
+    file_fullpaths = get_indexed_file_fullpaths()
     assert len(file_fullpaths) == 2
 
     assert len(get_for_processing_file_fullpaths(file_fullpaths)) == 1
@@ -76,7 +76,7 @@ def test_pre_commit_4(test):
 
     os.chdir(test_fullpath)
 
-    file_fullpaths = get_added_or_modified_file_fullpaths()
+    file_fullpaths = get_indexed_file_fullpaths()
     assert len(file_fullpaths) == 2
 
     for_processing_file_fullpaths = get_for_processing_file_fullpaths(file_fullpaths)
@@ -86,5 +86,5 @@ def test_pre_commit_4(test):
 
     remove_from_index(for_processing_file_fullpaths)
 
-    file_fullpaths = get_added_or_modified_file_fullpaths()
+    file_fullpaths = get_indexed_file_fullpaths()
     assert len(file_fullpaths) == 1

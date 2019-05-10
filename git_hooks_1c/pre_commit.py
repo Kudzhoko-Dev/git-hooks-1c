@@ -12,12 +12,12 @@ import shutil
 from parse_1c_build import Parser
 
 logger = logging.getLogger(__name__)
-added_or_modified = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
+indexed_pattern = re.compile(r'^\s*[AMD]\s+"?(?P<rel_name>[^"]*)"?')
 bin_file_suffixes = ['.epf', '.erf', '.ert', '.md']
 bin_file_to_check_suffixes = ['.md']
 
 
-def get_added_or_modified_file_fullpaths() -> List[Path]:
+def get_indexed_file_fullpaths() -> List[Path]:
     result = []
     try:
         args_au = ['git', 'diff-index',  '--ignore-submodules', '--name-status', '--cached', 'HEAD']
@@ -27,10 +27,10 @@ def get_added_or_modified_file_fullpaths() -> List[Path]:
         output = subprocess.check_output(args_au, encoding='utf-8')
     for line in output.split('\n'):
         if line != '':
-            match = added_or_modified.match(line)
+            match = indexed_pattern.match(line)
             if match:
-                added_or_modified_file_fullpath = Path(match.group('rel_name')).absolute()
-                result.append(added_or_modified_file_fullpath)
+                indexed_file_fullpath = Path(match.group('rel_name')).absolute()
+                result.append(indexed_file_fullpath)
     return result
 
 
@@ -81,12 +81,12 @@ def remove_from_index(file_fullpaths: List[Path]) -> None:
 # noinspection PyUnusedLocal
 def run(args) -> None:
     try:
-        added_or_modified_file_fullpaths = get_added_or_modified_file_fullpaths()
-        if len(added_or_modified_file_fullpaths) == 0:
-            logger.info('no added or modified files')
+        indexed_file_fullpaths = get_indexed_file_fullpaths()
+        if len(indexed_file_fullpaths) == 0:
+            logger.info('no added, modified or deleted files')
             sys.exit(1)
 
-        for_processing_file_fullpaths = get_for_processing_file_fullpaths(added_or_modified_file_fullpaths)
+        for_processing_file_fullpaths = get_for_processing_file_fullpaths(indexed_file_fullpaths)
         if len(for_processing_file_fullpaths) == 0:
             logger.info('no for processing files')
 
@@ -99,9 +99,9 @@ def run(args) -> None:
         if args.only_source_files:
             remove_from_index(for_processing_file_fullpaths)
 
-        added_or_modified_file_fullpaths = get_added_or_modified_file_fullpaths()
-        if len(added_or_modified_file_fullpaths) == 0:
-            logger.info('no added or modified files')
+        indexed_file_fullpaths = get_indexed_file_fullpaths()
+        if len(indexed_file_fullpaths) == 0:
+            logger.info('no added, modified or deleted files')
             sys.exit(1)
 
     except Exception as e:
