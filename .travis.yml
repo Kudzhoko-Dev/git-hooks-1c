@@ -7,20 +7,22 @@ python: '3.7'
 #   only:
 #     - master
 
-install:
-  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-  - source $HOME/.poetry/env
-  - poetry install
+stages:
+  - install
+  - test
+  - deploy
 
-test:
-  - pytest
-
-build:
-  - poetry build
-
-publish:
-  - provider: build
-    skip_cleanup: true
-    script: poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
-    on:
-      branch: master
+jobs:
+  include:
+    - stage: install
+      script:
+        curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+        source $HOME/.poetry/env
+        poetry install
+    - stage: test
+      script:
+        pytest
+    - stage: publish
+      script: poetry publish --build --username $PYPI_USERNAME --password $PYPI_PASSWORD
+      on:
+        branch: master
