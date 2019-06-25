@@ -18,4 +18,4 @@ deploy:
     skip_cleanup: true
     script: poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
     on:
-      - master
+      branch: master
