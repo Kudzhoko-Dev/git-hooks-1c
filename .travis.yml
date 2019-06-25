@@ -1,4 +1,5 @@
 language: python
+python: '3.7'
 dist: xenial
 before_install:
   - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
@@ -13,4 +14,3 @@ deploy:
     script: poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
     on:
       branch: master
-      python: '3.7'
