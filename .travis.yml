@@ -12,10 +12,13 @@ install:
   - source $HOME/.poetry/env
   - poetry install
 
+test:
+  - pytest
+
 build:
   - poetry build
 
-deploy:
+publish:
   - provider: build
     skip_cleanup: true
     script: poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
