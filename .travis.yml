@@ -13,7 +13,6 @@ before_install:
 install:
   - poetry install
 script:
-  - pytest
   - poetry build
 deploy:
   - provider: script
