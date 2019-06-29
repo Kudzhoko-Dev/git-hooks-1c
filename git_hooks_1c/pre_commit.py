@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-import logging
 from pathlib import Path
 import subprocess
 import sys
 from typing import List
 
 import fleep
+from loguru import logger
 import re
 import shutil
 
 from parse_1c_build import Parser
 
-logger = logging.getLogger(__name__)
 indexed_pattern = re.compile(r'^\s*[AMD]\s+"?(?P<rel_name>[^"]*)"?')
 bin_file_suffixes = ['.epf', '.erf', '.ert', '.md']
 bin_file_to_check_suffixes = ['.md']

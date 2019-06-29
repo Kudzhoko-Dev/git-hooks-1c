@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-import logging
 from pathlib import Path
 import sys
 
-logger = logging.getLogger(__name__)
+from loguru import logger
 
 
 # noinspection PyUnusedLocal
