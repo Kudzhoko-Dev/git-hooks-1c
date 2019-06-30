@@ -15,6 +15,8 @@ indexed_pattern = re.compile(r'^\s*[AMD]\s+"?(?P<rel_name>[^"]*)"?')
 bin_file_suffixes = ['.epf', '.erf', '.ert', '.md']
 bin_file_to_check_suffixes = ['.md']
 
+logger.disable(__name__)
+
 
 def get_indexed_file_fullpaths() -> List[Path]:
     result = []
@@ -79,6 +81,9 @@ def remove_from_index(file_fullpaths: List[Path]) -> None:
 
 # noinspection PyUnusedLocal
 def run(args) -> None:
+    logger.enable('cjk-commons')
+    logger.enable('parse-1c-build')
+    logger.enable(__name__)
     try:
         indexed_file_fullpaths = get_indexed_file_fullpaths()
         if len(indexed_file_fullpaths) == 0:

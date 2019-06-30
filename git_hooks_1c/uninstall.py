@@ -4,9 +4,14 @@ import sys
 
 from loguru import logger
 
+logger.disable(__name__)
+
 
 # noinspection PyUnusedLocal
 def run(args) -> None:
+    logger.enable('cjk-commons')
+    logger.enable('parse-1c-build')
+    logger.enable(__name__)
     try:
         hooks_dir_fullpath = Path('.git', 'hooks').absolute()
         if not hooks_dir_fullpath.is_dir():
