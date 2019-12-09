@@ -25,7 +25,7 @@ def run(args) -> None:
         with pre_commit_file_fullpath.open('w') as pre_commit_file:
             pre_commit_file.write('#!/bin/sh\n')
             pre_commit_file.write('cmd //C "gh1c.exe pre_commit{}"\n'.format(
-                ' -s' if args.only_source_files else ''))  # todo
+                ' -a' if args.not_remove_1c_files else ''))  # todo
         subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.quotepath', 'false'])
         subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.longpaths', 'true'])
         logger.info('git-hooks-1c installed')
@@ -54,7 +54,7 @@ def add_subparser(subparsers) -> None:
         help='Install hooks anyway'
     )
     subparser.add_argument(
-        '-s', '--only-source-files',
+        '-a', '--not-remove-1c-files',
         action='store_true',
-        help='Remove 1C-files from index (add to index source files only)'
+        help='Not remove 1C-files from index'
     )

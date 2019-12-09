@@ -100,7 +100,7 @@ def run(args) -> None:
 
         add_to_index(for_indexing_source_dir_fullpaths)
 
-        if args.only_source_files:
+        if not args.not_remove_1c_files:
             remove_from_index(for_processing_file_fullpaths)
 
         indexed_file_fullpaths = get_indexed_file_fullpaths()
@@ -128,7 +128,7 @@ def add_subparser(subparsers) -> None:
         help='Show this help message and exit'
     )
     subparser.add_argument(
-        '-s', '--only-source-files',
+        '-a', '--not-remove-1c-files',
         action='store_true',
-        help='Remove 1C-files from index (add to index source files only)'
+        help='Not remove 1C-files from index'
     )
