@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "git-hooks-1c"
-version = "9.5.0"
+version = "9.5.1"
 description = "Git hooks utilities for 1C:Enterprise"
 authors = ["Cujoko <cujoko@gmail.com>"]
 license = "MIT"
@@ -25,7 +25,7 @@ python = "^3.7"
 cjk-commons = "^3.5"
 parse-1c-build = "^5.11"
 fleep = "^1.0"
-loguru = "^0.4.0"
+loguru = "^0.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3"
