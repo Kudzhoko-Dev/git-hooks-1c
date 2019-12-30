@@ -100,7 +100,7 @@ def run(args) -> None:
 
         add_to_index(for_indexing_source_dir_fullpaths)
 
-        if not args.not_remove_1c_files:
+        if not args.keep_files:
             remove_from_index(for_processing_file_fullpaths)
 
         indexed_file_fullpaths = get_indexed_file_fullpaths()

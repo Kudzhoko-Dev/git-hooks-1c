@@ -25,7 +25,7 @@ def run(args) -> None:
         with pre_commit_file_fullpath.open('w') as pre_commit_file:
             pre_commit_file.write('#!/bin/sh\n')
             pre_commit_file.write('cmd //C "gh1c.exe pre_commit{}"\n'.format(
-                ' -a' if args.not_remove_1c_files else ''))  # todo
+                ' -a' if args.keep_files else ''))  # todo
         subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.quotepath', 'false'])
         subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.longpaths', 'true'])
         logger.info('git-hooks-1c installed')
