@@ -128,7 +128,7 @@ def add_subparser(subparsers) -> None:
         help='Show this help message and exit'
     )
     subparser.add_argument(
-        '-a', '--not-remove-1c-files',
+        '-k', '--keep-files',
         action='store_true',
-        help='Not remove 1C-files from index'
+        help='Keep 1C-files in the index'
     )
