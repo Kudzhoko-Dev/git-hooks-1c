@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
+import re
+import shutil
 import subprocess
 import sys
 from typing import List
 
 import fleep
 from loguru import logger
-import re
-import shutil
 
 from parse_1c_build import Parser
 
-indexed_pattern = re.compile(r'^\s*[AMD]\s+"?(?P<rel_name>[^"]*)"?')
+indexed_pattern = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
 bin_file_suffixes = ['.epf', '.erf', '.ert', '.md']
 bin_file_to_check_suffixes = ['.md']
 
@@ -102,12 +102,6 @@ def run(args) -> None:
 
         if not args.keep_files:
             remove_from_index(for_processing_file_fullpaths)
-
-        indexed_file_fullpaths = get_indexed_file_fullpaths()
-        if len(indexed_file_fullpaths) == 0:
-            logger.info('no added, modified or deleted files')
-            sys.exit(1)
-
     except Exception as e:
         logger.exception(e)
         sys.exit(1)
