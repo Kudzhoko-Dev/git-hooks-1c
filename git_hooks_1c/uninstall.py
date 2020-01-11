@@ -12,20 +12,21 @@ def run(args) -> None:
     logger.enable('cjk-commons')
     logger.enable('parse-1c-build')
     logger.enable(__name__)
+
+    hooks_dir_fullpath = Path('.git', 'hooks').absolute()
+    if not hooks_dir_fullpath.is_dir():
+        logger.error('not a git repo')
+        return
+
+    pre_commit_file_fullpath = Path(hooks_dir_fullpath, 'pre-commit')
+    if not pre_commit_file_fullpath.exists():
+        logger.info('git-hooks-1c not installed')
+        return
+
     try:
-        hooks_dir_fullpath = Path('.git', 'hooks').absolute()
-        if not hooks_dir_fullpath.is_dir():
-            logger.error('not a git repo')
-            return
-
-        pre_commit_file_fullpath = Path(hooks_dir_fullpath, 'pre-commit')
-        if not pre_commit_file_fullpath.exists():
-            logger.info('git-hooks-1c not installed')
-            return
-
         pre_commit_file_fullpath.unlink()
+        
         logger.info('git-hooks-1c uninstalled')
-
     except Exception as e:
         logger.exception(e)
         sys.exit(1)

@@ -2,12 +2,12 @@
 from pathlib import Path
 import re
 import shutil
-import subprocess
 import sys
 from typing import List
 
 import fleep
 from loguru import logger
+from plumbum import local
 
 from parse_1c_build import Parser
 
@@ -20,12 +20,11 @@ logger.disable(__name__)
 
 def get_indexed_file_fullpaths() -> List[Path]:
     result = []
+    git = local['git']
     try:
-        args_au = ['git', 'diff-index',  '--ignore-submodules', '--name-status', '--cached', 'HEAD']
-        output = subprocess.check_output(args_au, encoding='utf-8')
-    except subprocess.CalledProcessError:
-        args_au = ['git', 'status', '--ignore-submodules', '--porcelain']
-        output = subprocess.check_output(args_au, encoding='utf-8')
+        output = git('diff-index', '--ignore-submodules', '--name-status', '--cached', 'HEAD')
+    except:
+        output = git('status', '--ignore-submodules', '--porcelain')
     for line in output.split('\n'):
         if line != '':
             match = indexed_pattern.match(line)
@@ -64,19 +63,15 @@ def parse(file_fullpaths: List[Path]) -> List[Path]:
 
 
 def add_to_index(dir_fullpaths: List[Path]) -> None:
+    git = local['git']
     for dir_fullpath in dir_fullpaths:
-        args_au = ['git', 'add', '--all', str(dir_fullpath)]
-        exit_code = subprocess.check_call(args_au)
-        if exit_code:
-            raise Exception('some error occured while adding to index', exit_code)
+        git('add', '--all', str(dir_fullpath))
 
 
 def remove_from_index(file_fullpaths: List[Path]) -> None:
+    git = local['git']
     for file_fullpath in file_fullpaths:
-        args_au = ['git', 'rm', '--cached', str(file_fullpath)]
-        exit_code = subprocess.check_call(args_au)
-        if exit_code:
-            raise Exception('some error occured while removing from index', exit_code)
+        git('rm', '--cached', str(file_fullpath))
 
 
 # noinspection PyUnusedLocal
@@ -84,19 +79,22 @@ def run(args) -> None:
     logger.enable('cjk-commons')
     logger.enable('parse-1c-build')
     logger.enable(__name__)
+
     try:
         indexed_file_fullpaths = get_indexed_file_fullpaths()
         if len(indexed_file_fullpaths) == 0:
             logger.info('no added, modified or deleted files')
-            sys.exit(1)
+            return
 
         for_processing_file_fullpaths = get_for_processing_file_fullpaths(indexed_file_fullpaths)
         if len(for_processing_file_fullpaths) == 0:
             logger.info('no for processing files')
+            return
 
         for_indexing_source_dir_fullpaths = parse(for_processing_file_fullpaths)
         if len(for_indexing_source_dir_fullpaths) == 0:
             logger.info('no for indexing source dirs')
+            return
 
         add_to_index(for_indexing_source_dir_fullpaths)
 

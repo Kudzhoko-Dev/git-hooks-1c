@@ -4,6 +4,7 @@ import subprocess
 import sys
 
 from loguru import logger
+from plumbum import local
 
 logger.disable(__name__)
 
@@ -13,21 +14,27 @@ def run(args) -> None:
     logger.enable('cjk-commons')
     logger.enable('parse-1c-build')
     logger.enable(__name__)
+
+    hooks_dir_fullpath = Path('.git', 'hooks').absolute()
+    if not hooks_dir_fullpath.is_dir():
+        logger.error('not a git repo')
+        return
+        
+    pre_commit_file_fullpath = Path(hooks_dir_fullpath, 'pre-commit')
+    if pre_commit_file_fullpath.exists() and not args.force:
+        logger.info('git-hooks-1c already exist')
+        return
+
     try:
-        hooks_dir_fullpath = Path('.git', 'hooks').absolute()
-        if not hooks_dir_fullpath.is_dir():
-            logger.error('not a git repo')
-            return
-        pre_commit_file_fullpath = Path(hooks_dir_fullpath, 'pre-commit')
-        if pre_commit_file_fullpath.exists() and not args.force:
-            logger.info('git-hooks-1c already exist')
-            return
         with pre_commit_file_fullpath.open('w') as pre_commit_file:
             pre_commit_file.write('#!/bin/sh\n')
-            pre_commit_file.write('cmd //C "gh1c.exe pre_commit{}"\n'.format(
+            pre_commit_file.write('gh1c.exe pre_commit{}\n'.format(
                 ' -a' if args.keep_files else ''))  # todo
-        subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.quotepath', 'false'])
-        subprocess.call(['cmd.exe', '/C', 'git', 'config', '--local', 'core.longpaths', 'true'])
+
+        git = local['git']
+        git('config', '--local', 'core.quotepath', 'false')
+        git('config', '--local', 'core.longpaths', 'true')
+
         logger.info('git-hooks-1c installed')
     except Exception as e:
         logger.exception(e)
