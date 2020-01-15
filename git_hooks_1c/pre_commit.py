@@ -83,7 +83,7 @@ def run(args) -> None:
     try:
         indexed_file_fullpaths = get_indexed_file_fullpaths()
         if len(indexed_file_fullpaths) == 0:
-            logger.info('no added, modified or deleted files')
+            logger.info('no added or modified files')
             return
 
         for_processing_file_fullpaths = get_for_processing_file_fullpaths(indexed_file_fullpaths)
