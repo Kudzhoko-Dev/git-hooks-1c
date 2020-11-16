@@ -108,7 +108,7 @@ def run(args) -> None:
 def add_subparser(subparsers) -> None:
     decs = 'Pre-commit for 1C:Enterprise files'
     subparser = subparsers.add_parser(
-        Path(__file__).stem,
+        Path(__file__).stem.replace('_', '-'),
         help=decs,
         description=decs,
         add_help=False

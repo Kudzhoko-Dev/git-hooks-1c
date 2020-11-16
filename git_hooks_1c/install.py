@@ -28,7 +28,7 @@ def run(args) -> None:
     try:
         with pre_commit_file_fullpath.open('w') as pre_commit_file:
             pre_commit_file.write('#!/bin/sh\n')
-            pre_commit_file.write('gh1c.exe pre_commit{}\n'.format(
+            pre_commit_file.write('gh1c.exe pre-commit{}\n'.format(
                 ' -a' if args.keep_files else ''))  # todo
 
         git = local['git']
@@ -44,7 +44,7 @@ def run(args) -> None:
 def add_subparser(subparsers) -> None:
     decs = 'Install hooks'
     subparser = subparsers.add_parser(
-        Path(__file__).stem,
+        Path(__file__).stem.replace('_', '-'),
         help=decs,
         description=decs,
         add_help=False
