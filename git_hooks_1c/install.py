@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
-import subprocess
-import sys
 
+import sys
 from loguru import logger
 from plumbum import local
 
@@ -28,8 +27,7 @@ def run(args) -> None:
     try:
         with pre_commit_file_fullpath.open('w') as pre_commit_file:
             pre_commit_file.write('#!/bin/sh\n')
-            pre_commit_file.write('gh1c.exe pre-commit{}\n'.format(
-                ' -a' if args.keep_files else ''))  # todo
+            pre_commit_file.write(f'gh1c.exe pre-commit{" -a" if args.keep_files else ""}\n')  # todo
 
         git = local['git']
         git('config', '--local', 'core.quotepath', 'false')
