@@ -3,7 +3,6 @@ from pathlib import Path
 import re
 import shutil
 import sys
-from typing import List
 
 import fleep
 from loguru import logger
@@ -18,7 +17,7 @@ bin_file_to_check_suffixes = ['.md']
 logger.disable(__name__)
 
 
-def get_indexed_file_fullpaths() -> List[Path]:
+def get_indexed_file_fullpaths() -> list[Path]:
     result = []
     git = local['git']
     try:
@@ -34,7 +33,7 @@ def get_indexed_file_fullpaths() -> List[Path]:
     return result
 
 
-def get_for_processing_file_fullpaths(file_fullpaths: List[Path]) -> List[Path]:
+def get_for_processing_file_fullpaths(file_fullpaths: list[Path]) -> list[Path]:
     result = []
     for file_fullpath in file_fullpaths:
         if file_fullpath.suffix.lower() in bin_file_suffixes:
@@ -48,7 +47,7 @@ def get_for_processing_file_fullpaths(file_fullpaths: List[Path]) -> List[Path]:
     return result
 
 
-def parse(file_fullpaths: List[Path]) -> List[Path]:
+def parse(file_fullpaths: list[Path]) -> list[Path]:
     result = []
     parser = Parser()
     for file_fullpath in file_fullpaths:
@@ -62,16 +61,16 @@ def parse(file_fullpaths: List[Path]) -> List[Path]:
     return result
 
 
-def add_to_index(dir_fullpaths: List[Path]) -> None:
+def add_to_index(dir_fullpaths: list[Path]) -> None:
     git = local['git']
     for dir_fullpath in dir_fullpaths:
         git('add', '--all', str(dir_fullpath))
 
 
-def remove_from_index(file_fullpaths: List[Path]) -> None:
+def remove_from_index(file_fullpaths: list[Path]) -> None:
     git = local['git']
-    for file_fullpath in file_fullpaths:
-        git('rm', '--cached', str(file_fullpath))
+
+    git('rm', '--cached', *[str(file_fullpath) for file_fullpath in file_fullpaths])
 
 
 # noinspection PyUnusedLocal
