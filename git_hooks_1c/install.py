@@ -10,8 +10,8 @@ logger.disable(__name__)
 
 # noinspection PyUnusedLocal
 def run(args) -> None:
-    logger.enable('cjk-commons')
-    logger.enable('parse-1c-build')
+    logger.enable('cjk_commons')
+    logger.enable('parse_1c_build')
     logger.enable(__name__)
 
     hooks_dir_fullpath = Path('.git', 'hooks').absolute()
@@ -27,7 +27,7 @@ def run(args) -> None:
     try:
         with pre_commit_file_fullpath.open('w') as pre_commit_file:
             pre_commit_file.write('#!/bin/sh\n')
-            pre_commit_file.write(f'gh1c.exe pre-commit{" -a" if args.keep_files else ""}\n')  # todo
+            pre_commit_file.write(f'gh1c pre-commit{" -a" if args.keep_files else ""}\n')
 
         git = local['git']
         git('config', '--local', 'core.quotepath', 'false')

@@ -75,8 +75,8 @@ def remove_from_index(file_fullpaths: list[Path]) -> None:
 
 # noinspection PyUnusedLocal
 def run(args) -> None:
-    logger.enable('cjk-commons')
-    logger.enable('parse-1c-build')
+    logger.enable('cjk_commons')
+    logger.enable('parse_1c_build')
     logger.enable(__name__)
 
     try:
