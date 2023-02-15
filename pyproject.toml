@@ -1,14 +1,6 @@
 [tool.poetry]
-name = "git-hooks-1c"
-version = "9.10.1"
-description = "Git hooks utilities for 1C:Enterprise"
 authors = ["Cujoko <cujoko@gmail.com>"]
-readme = "README.md"
-packages = [{include = "git_hooks_1c"}]
-license = "MIT"
-repository = "https://github.com/Cujoko/git-hooks-1c"
-keywords = ["1c", "git", "pre-commit", "v8reader", "v8unpack", "gcomp"]
-classifiers=[
+classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
@@ -19,17 +11,25 @@ classifiers=[
     "Topic :: Software Development",
     "Topic :: Utilities"
 ]
+description = "Git hooks utilities for 1C:Enterprise"
+keywords = ["1c", "git", "pre-commit", "v8reader", "v8unpack", "gcomp"]
+license = "MIT"
+name = "git-hooks-1c"
+packages = [{include = "git_hooks_1c"}]
+readme = "README.md"
+repository = "https://github.com/Cujoko/git-hooks-1c"
+version = "9.10.1"
 
 [tool.poetry.scripts]
 gh1c = "git_hooks_1c.__main__:run"
 
 [tool.poetry.dependencies]
-python = "^3.9"
 cjk-commons = "^3.6.1"
 fleep = "^1.0.1"
 loguru = "^0.6.0"
 parse-1c-build = "^5.15.0"
 plumbum = "^1.8.1"
+python = "^3.9"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.16.2"
@@ -37,5 +37,5 @@ pytest = "^7.2.1"
 rope = "^1.7.0"
 
 [build-system]
-requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
