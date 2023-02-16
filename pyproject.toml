@@ -24,10 +24,10 @@ version = "9.10.1"
 gh1c = "git_hooks_1c.__main__:run"
 
 [tool.poetry.dependencies]
-cjk-commons = "^3.6.1"
+cjk-commons = "^3.6.2"
 fleep = "^1.0.1"
 loguru = "^0.6.0"
-parse-1c-build = "^5.15.0"
+parse-1c-build = "^5.15.1"
 plumbum = "^1.8.1"
 python = "^3.9"
 
