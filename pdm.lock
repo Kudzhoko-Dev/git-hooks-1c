@@ -53,12 +53,12 @@ dependencies = [
 
 [[package]]
 name = "parse-1c-build"
-version = "5.15.2"
+version = "5.15.3"
 requires_python = ">=3.10"
 summary = "Parse and build utilities for 1C:Enterprise"
 dependencies = [
-    "cjk-commons==3.6.3",
-    "commons-1c==3.6.3",
+    "cjk-commons<4.0.0,>=3.6.3",
+    "commons-1c<4.0.0,>=3.6.3",
     "loguru==0.6.0",
 ]
 
@@ -98,7 +98,7 @@ dependencies = [
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:22fb3ace6cafe8707a43ceabdf31d477cdad6b0f4b8be791ee2efcc12d15476d"
+content_hash = "sha256:ebf5f686340d9ea65adbd608e0aeb3f84d41d5839b082e516d5fa9420f1cfca4"
 
 [metadata.files]
 "appdirs 1.4.4" = [
@@ -124,9 +124,9 @@ content_hash = "sha256:22fb3ace6cafe8707a43ceabdf31d477cdad6b0f4b8be791ee2efcc12
     {url = "https://files.pythonhosted.org/packages/75/1f/d3818863e4be96bd641c4643c535a98f0fa2a12efa7c8ba35f763fa778ee/loguru-0.6.0.tar.gz", hash = "sha256:066bd06758d0a513e9836fd9c6b5a75bfb3fd36841f4b996bc60b547a309d41c"},
     {url = "https://files.pythonhosted.org/packages/fe/21/e1d1da2586865a159fc73b611f36bdd50b6c4043cb6132d3d5e972988028/loguru-0.6.0-py3-none-any.whl", hash = "sha256:4e2414d534a2ab57573365b3e6d0234dfb1d84b68b7f3b948e6fb743860a77c3"},
 ]
-"parse-1c-build 5.15.2" = [
-    {url = "https://files.pythonhosted.org/packages/85/a8/59bf586fb3b6a8bd8fb0ff6b07720c5b58a61d9dcb76457cbb5b02e27fb0/parse_1c_build-5.15.2-py3-none-any.whl", hash = "sha256:c4821cb8be39932c096cc5da02504c12ad5acc283edd36b7ae3dec6f74315e5c"},
-    {url = "https://files.pythonhosted.org/packages/de/e6/0264ab38548fea102f32bf761775c450f57ae897792e702d09a775544d2e/parse-1c-build-5.15.2.tar.gz", hash = "sha256:ab59d528cf07fd003d9f0fff190083535b2ff0e53956fde0cf29d8f7b19c3487"},
+"parse-1c-build 5.15.3" = [
+    {url = "https://files.pythonhosted.org/packages/85/fe/81866d3ca281a17be4e88ce12aa48c0b6f45ef48807dcd1ae18e8aaa964f/parse_1c_build-5.15.3-py3-none-any.whl", hash = "sha256:60a338dc935503a01730c084113609513a9f41dc9cf7c36384d1b02b14d10aba"},
+    {url = "https://files.pythonhosted.org/packages/b0/35/938d191a089454b26512f409565e26740630c55b3211707dc8e89dcd06bc/parse-1c-build-5.15.3.tar.gz", hash = "sha256:6b6f3a3a60dea304a62c530b8e139751927a2c15b6517d59300f5c35844417bd"},
 ]
 "plumbum 1.8.1" = [
     {url = "https://files.pythonhosted.org/packages/38/b2/1886b35657304d26ad948845a6aee173a5655bdc4804fb15f033ac70f083/plumbum-1.8.1-py3-none-any.whl", hash = "sha256:07cf5f50bf739e91fb83ce304fc66b41dbd12db4d4546ff5266087dd9d148314"},
