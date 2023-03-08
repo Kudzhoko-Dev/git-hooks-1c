@@ -2,6 +2,7 @@
 from argparse import ArgumentParser
 
 from cjk_commons.logging_ import add_logging_arguments
+
 from git_hooks_1c import __version__, install, pre_commit, uninstall
 
 

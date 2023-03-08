@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-from pathlib import Path
 import re
 import shutil
 import sys
+from pathlib import Path
 
 import fleep
 from loguru import logger
-from plumbum import local
-
 from parse_1c_build import Parser
+from plumbum import local
 
 indexed_pattern = re.compile(r'^\s*[AM]\s+"?(?P<rel_name>[^"]*)"?')
 bin_file_suffixes = ['.epf', '.erf', '.ert', '.md']

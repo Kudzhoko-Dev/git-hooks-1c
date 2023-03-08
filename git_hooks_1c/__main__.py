@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from git_hooks_1c.core import run
 

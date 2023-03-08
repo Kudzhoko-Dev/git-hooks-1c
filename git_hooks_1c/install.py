@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+import sys
 from pathlib import Path
 
-import sys
 from loguru import logger
 from plumbum import local
 
