@@ -196,3 +196,5 @@ dmypy.json
 .pyre/
 
 tests/data
+
+.pdm.toml

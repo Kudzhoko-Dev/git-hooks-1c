@@ -1,5 +1,9 @@
-[tool.poetry]
-authors = ["Cujoko <cujoko@gmail.com>"]
+[tool.pdm]
+
+[project]
+authors = [
+    {name = "Cujoko", email = "cujoko@gmail.com"},
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -7,35 +11,27 @@ classifiers = [
     "Natural Language :: Russian",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.9",
     "Topic :: Software Development",
     "Topic :: Utilities"
 ]
+dependencies = [
+    "cjk-commons==3.6.3",
+    "fleep==1.0.1",
+    "loguru==0.6.0",
+    "parse-1c-build==5.15.2",
+    "plumbum==1.8.1",
+]
 description = "Git hooks utilities for 1C:Enterprise"
 keywords = ["1c", "git", "pre-commit", "v8reader", "v8unpack", "gcomp"]
-license = "MIT"
+license = {text = "MIT"}
 name = "git-hooks-1c"
-packages = [{include = "git_hooks_1c"}]
 readme = "README.md"
-repository = "https://github.com/Cujoko/git-hooks-1c"
-version = "9.10.1"
-
-[tool.poetry.scripts]
-gh1c = "git_hooks_1c.__main__:run"
-
-[tool.poetry.dependencies]
-cjk-commons = "^3.6.2"
-fleep = "^1.0.1"
-loguru = "^0.6.0"
-parse-1c-build = "^5.15.1"
-plumbum = "^1.8.1"
-python = "^3.9"
-
-[tool.poetry.group.dev.dependencies]
-pylint = "^2.16.2"
-pytest = "^7.2.1"
-rope = "^1.7.0"
+requires-python = ">=3.10"
+version = "9.10.2"
 
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core"]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+gh1c = "git_hooks_1c.__main__:run"
