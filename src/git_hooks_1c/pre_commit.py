@@ -72,7 +72,6 @@ def remove_from_index(file_fullpaths: list[Path]) -> None:
     git('rm', '--cached', *[str(file_fullpath) for file_fullpath in file_fullpaths])
 
 
-# noinspection PyUnusedLocal
 def run(args) -> None:
     logger.enable('cjk_commons')
     logger.enable('parse_1c_build')

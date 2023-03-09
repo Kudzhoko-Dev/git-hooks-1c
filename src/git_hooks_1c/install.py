@@ -8,7 +8,6 @@ from plumbum import local
 logger.disable(__name__)
 
 
-# noinspection PyUnusedLocal
 def run(args) -> None:
     logger.enable('cjk_commons')
     logger.enable('parse_1c_build')

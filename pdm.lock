@@ -8,7 +8,7 @@ summary = "A small Python module for determining appropriate platform-specific d
 
 [[package]]
 name = "cjk-commons"
-version = "3.6.5"
+version = "3.6.7"
 requires_python = ">=3.10"
 summary = "Commons"
 dependencies = [
@@ -53,7 +53,7 @@ dependencies = [
 
 [[package]]
 name = "parse-1c-build"
-version = "5.15.4"
+version = "5.15.5"
 requires_python = ">=3.10"
 summary = "Parse and build utilities for 1C:Enterprise"
 dependencies = [
@@ -105,9 +105,9 @@ content_hash = "sha256:ebf5f686340d9ea65adbd608e0aeb3f84d41d5839b082e516d5fa9420
     {url = "https://files.pythonhosted.org/packages/3b/00/2344469e2084fb287c2e0b57b72910309874c3245463acd6cf5e3db69324/appdirs-1.4.4-py2.py3-none-any.whl", hash = "sha256:a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128"},
     {url = "https://files.pythonhosted.org/packages/d7/d8/05696357e0311f5b5c316d7b95f46c669dd9c15aaeecbb48c7d0aeb88c40/appdirs-1.4.4.tar.gz", hash = "sha256:7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41"},
 ]
-"cjk-commons 3.6.5" = [
-    {url = "https://files.pythonhosted.org/packages/39/bc/c3c1c785cdacc5f2d7d107848e6601f702a2589e38ba2acb57b9afcca242/cjk_commons-3.6.5-py3-none-any.whl", hash = "sha256:b7a1951dc5a721c5b43ae22aab9b4a940ac052380b22f5eb5d42d47a646c53dd"},
-    {url = "https://files.pythonhosted.org/packages/ef/68/2a1812d9e8aafdc9ff4a1d3070bbc763aa05314f2dec433699ee1f90091b/cjk-commons-3.6.5.tar.gz", hash = "sha256:c839ddf798fead7048c726c9fa52fa9d224fcd460b742146a7ff700d6d7e93b2"},
+"cjk-commons 3.6.7" = [
+    {url = "https://files.pythonhosted.org/packages/79/ba/7798474576c7c32ac0f62da04799ed9ceb5ea4268a15383f8c2b5b638a14/cjk_commons-3.6.7-py3-none-any.whl", hash = "sha256:3d633631059ec39010f03950e9c73e43bda6cb2f965169cd4991ac75f7865aeb"},
+    {url = "https://files.pythonhosted.org/packages/ef/6c/4a5f85c751c577ff1ed514e53d067e2fbb8b1a7d2342883f94ae7dab24e0/cjk-commons-3.6.7.tar.gz", hash = "sha256:c11c3be7ab2969d5287f46fd577027d560a1ca0d5f58e789b199e814907e673d"},
 ]
 "colorama 0.4.6" = [
     {url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
@@ -124,9 +124,9 @@ content_hash = "sha256:ebf5f686340d9ea65adbd608e0aeb3f84d41d5839b082e516d5fa9420
     {url = "https://files.pythonhosted.org/packages/75/1f/d3818863e4be96bd641c4643c535a98f0fa2a12efa7c8ba35f763fa778ee/loguru-0.6.0.tar.gz", hash = "sha256:066bd06758d0a513e9836fd9c6b5a75bfb3fd36841f4b996bc60b547a309d41c"},
     {url = "https://files.pythonhosted.org/packages/fe/21/e1d1da2586865a159fc73b611f36bdd50b6c4043cb6132d3d5e972988028/loguru-0.6.0-py3-none-any.whl", hash = "sha256:4e2414d534a2ab57573365b3e6d0234dfb1d84b68b7f3b948e6fb743860a77c3"},
 ]
-"parse-1c-build 5.15.4" = [
-    {url = "https://files.pythonhosted.org/packages/82/49/d7ba20d52a352f45ce33fdfc0dc852b21a2f540c0f99f9530a5812da42f2/parse-1c-build-5.15.4.tar.gz", hash = "sha256:e8f8c34e863a4814ced73e1a8a939d4d717620d485f0a49f5eb54266f0a3421c"},
-    {url = "https://files.pythonhosted.org/packages/c6/b9/0c5dbf56846be3dd965784f73683504076c9aec98bd3d379daa0a81d0f9d/parse_1c_build-5.15.4-py3-none-any.whl", hash = "sha256:4e2645e4780a6ccfa68831b77ada3ec94fb53dc649c430e285ca6c1a0b20685c"},
+"parse-1c-build 5.15.5" = [
+    {url = "https://files.pythonhosted.org/packages/10/5f/d371796494e65d2cae82c4af59daa7dbde3aa5151c578115e6e7bd2481f0/parse-1c-build-5.15.5.tar.gz", hash = "sha256:ad7fbe9a5027246ed3fb882a1a7ee4feb303d2d0d021f48435ed58c2c1f4fea7"},
+    {url = "https://files.pythonhosted.org/packages/7d/42/f4aed7ab3a22bda351eadedf865fbebda19284e28dcfd9c268e560e7e55f/parse_1c_build-5.15.5-py3-none-any.whl", hash = "sha256:f1e121cbaa2daadf486a437d3f33079c2b62da20a8f2b2698ee935731ec52a0a"},
 ]
 "plumbum 1.8.1" = [
     {url = "https://files.pythonhosted.org/packages/38/b2/1886b35657304d26ad948845a6aee173a5655bdc4804fb15f033ac70f083/plumbum-1.8.1-py3-none-any.whl", hash = "sha256:07cf5f50bf739e91fb83ce304fc66b41dbd12db4d4546ff5266087dd9d148314"},
