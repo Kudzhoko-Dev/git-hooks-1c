@@ -11,6 +11,7 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Natural Language :: Russian",
+    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.10",
     "Topic :: Software Development",
@@ -18,10 +19,10 @@ classifiers = [
 ]
 dependencies = [
     "cjk-commons>=3.6.3,<4.0.0",
-    "fleep==1.0.1",
-    "loguru==0.6.0",
+    "fleep>=1.0.1",
+    "loguru>=0.6.0",
     "parse-1c-build>=5.15.2,<6.0.0",
-    "plumbum==1.8.1",
+    "plumbum>=1.8.1",
 ]
 description = "Git hooks utilities for 1C:Enterprise"
 keywords = ["1c", "git", "pre-commit", "v8reader", "v8unpack", "gcomp"]
@@ -29,7 +30,7 @@ license = {text = "MIT"}
 name = "git-hooks-1c"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "9.10.5"
+version = "9.10.6"
 
 [project.scripts]
 gh1c = "git_hooks_1c.__main__:run"
